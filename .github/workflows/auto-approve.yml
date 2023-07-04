@@ -1,0 +1,19 @@
+name: auto approve
+
+on: pull_request_target
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v3
+        if: github.actor == 'dependabot[bot]' || github.actor == 'psastras'
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+  enable-auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alexwilson/enable-github-automerge-action@main
+        if: github.actor == 'dependabot[bot]'
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
