@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "cargo-sbom",
+  "serde-spdx",
+  "serde-cyclonedx",
+]
+
+[profile.release]
+strip = true

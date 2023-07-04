@@ -1,0 +1,26 @@
+[workspace]
+
+[package]
+name = "hello-server"
+version = "0.1.0"
+edition = "2021"
+description = "Create software bill of materials (SBOM) for Rust"
+license = "MIT"
+readme = "README.md"
+keywords = ["sbom", "rust", "cargo", "spdx", "cyclonedx", "cli", "terminal"]
+categories = ["command-line-utilities"]
+homepage  = "https://github.com/psastras/sbom-rs"
+documentation = "https://docs.rs/cargo_sbom"
+repository = "https://github.com/psastras/sbom-rs"
+
+[badges]
+github = { repository = "psastras/sbom-rs" }
+
+[dependencies]
+hyper = { version = "0.14", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
+pretty_env_logger = "0.4.0"
+
+[[bin]]
+name = "hello-server"
+path = "main.rs"
