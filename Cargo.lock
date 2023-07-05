@@ -150,7 +150,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-sbom"
-version = "0.3.1"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "built",
@@ -160,11 +160,13 @@ dependencies = [
  "clap-cargo",
  "duct",
  "duct_sh",
+ "packageurl",
  "petgraph",
  "semver",
  "serde-cyclonedx",
  "serde-spdx",
  "serde_json",
+ "spdx",
  "uuid",
 ]
 
@@ -589,6 +591,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "packageurl"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c53362339d1c48910f1b0c35e2ae96e2d32e442c7dc3ac5f622908ec87221f08"
+dependencies = [
+ "percent-encoding",
+ "thiserror",
+]
+
+[[package]]
 name = "percent-encoding"
 version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -715,7 +727,7 @@ dependencies = [
 
 [[package]]
 name = "serde-cyclonedx"
-version = "0.3.1"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "derive_builder",
@@ -731,7 +743,7 @@ dependencies = [
 
 [[package]]
 name = "serde-spdx"
-version = "0.3.1"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "derive_builder",
@@ -784,6 +796,21 @@ checksum = "b0d94659ad3c2137fef23ae75b03d5241d633f8acded53d672decfa0e6e0caef"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "smallvec"
+version = "1.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a507befe795404456341dfab10cef66ead4c041f62b8b11bbb92bffe5d0953e0"
+
+[[package]]
+name = "spdx"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2971cb691ca629f46174f73b1f95356c5617f89b4167f04107167c3dccb8dd89"
+dependencies = [
+ "smallvec",
 ]
 
 [[package]]

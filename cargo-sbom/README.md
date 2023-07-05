@@ -42,14 +42,33 @@ $ cargo sbom
   "creationInfo": {
     "created": "2023-07-04T12:38:15.211Z",
     "creators": [
-      "Tool: cargo-sbom-v0.3.1"
+      "Tool: cargo-sbom-v0.4.0"
     ]
   },
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.3.1-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.4.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
   "files": [
     {
   <rest of output omitted>
 ```
+
+## Supported SBOM Features
+
+### SPDX
+
+| SPDX Field                | Source                                                                                             |
+|---------------------------|----------------------------------------------------------------------------------------------------|
+| packages.SPDXID           |                                            Written as SPDXRef-Package-crate name-crate version     |
+| packages.description      |                                                         Read from Cargo.toml's "description" field |
+| packages.downloadLocation | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index")       |
+| packages.externalRefs     | If packages.downloadLocation is crates.io, written as a package url formatted string               |
+| packages.homepage         |                                                            Read from Cargo.toml's "homepage" field |
+| packages.licenseConcluded |                                                          Parsed from Cargo.toml's "homepage" field |
+| packages.licenseDeclared  |                                                             Read from Cargo.toml's "license" field |
+| packages.name             |                                                                Read from Cargo.toml's "name" field |
+
+### CycloneDx
+
+None
 
 License: MIT
