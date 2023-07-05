@@ -10,7 +10,20 @@ A group of Rust projects for interacting with and producing software bill of mat
 Create a SPDX SBOM for a Cargo project.
 
 ```shell
-$ cargo sbom --sbom-format=spdx
+$ cargo sbom
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "2023-07-04T12:38:15.211Z",
+    "creators": [
+      "Tool: cargo-sbom-v0.4.0"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.4.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+  "files": [
+    {
+  <rest of output omitted>
 ```
 
 ## Install
