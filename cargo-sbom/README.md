@@ -52,4 +52,23 @@ $ cargo sbom
   <rest of output omitted>
 ```
 
+## Supported SBOM Features
+
+### SPDX
+
+| SPDX Field                | Source                                                                                             |
+|---------------------------|----------------------------------------------------------------------------------------------------|
+| packages.SPDXID           |                                            Written as SPDXRef-Package-crate name-crate version     |
+| packages.description      |                                                         Read from Cargo.toml's "description" field |
+| packages.downloadLocation | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index")       |
+| packages.externalRefs     | If packages.downloadLocation is crates.io, written as a package url formatted string               |
+| packages.homepage         |                                                            Read from Cargo.toml's "homepage" field |
+| packages.licenseConcluded |                                                          Parsed from Cargo.toml's "homepage" field |
+| packages.licenseDeclared  |                                                             Read from Cargo.toml's "license" field |
+| packages.name             |                                                                Read from Cargo.toml's "name" field |
+
+### CycloneDx
+
+None
+
 License: MIT

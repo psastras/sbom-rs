@@ -1,0 +1,584 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "2023-07-05T04:36:31.062Z",
+    "creators": [
+      "Tool: cargo-sbom-v0.3.1"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://docs.rs/serde_spdx/spdxdocs/serde-spdx-0.3.1-1bb24bb6-776e-4c4c-aa6f-b7e0f70a6558",
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-serde-spdx",
+      "checksums": [],
+      "fileName": "serde-spdx",
+      "fileTypes": [
+        "BINARY"
+      ]
+    }
+  ],
+  "name": "serde-spdx-0.3.1",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-serde-spdx-0.3.1",
+      "description": "Serde serialization for SPDX files",
+      "downloadLocation": "NONE",
+      "homepage": "https://github.com/psastras/sbom-rs",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "name": "serde-spdx"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-anyhow-1.0.71",
+      "description": "Flexible concrete Error type built on std::error::Error",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/anyhow@1.0.71",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "anyhow"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-derive_builder-0.12.0",
+      "description": "Rust macro to automatically implement the builder pattern for arbitrary structs.",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/derive_builder@0.12.0",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT/Apache-2.0",
+      "name": "derive_builder"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-derive_builder_macro-0.12.0",
+      "description": "Rust macro to automatically implement the builder pattern for arbitrary structs.",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/derive_builder_macro@0.12.0",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT/Apache-2.0",
+      "name": "derive_builder_macro"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-derive_builder_core-0.12.0",
+      "description": "Internal helper library for the derive_builder crate.",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/derive_builder_core@0.12.0",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT/Apache-2.0",
+      "name": "derive_builder_core"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-darling-0.14.4",
+      "description": "A proc-macro library for reading attributes into structs when\nimplementing custom derives.\n",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/darling@0.14.4",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "name": "darling"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-darling_core-0.14.4",
+      "description": "Helper crate for proc-macro library for reading attributes into structs when\nimplementing custom derives. Use https://crates.io/crates/darling in your code.\n",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/darling_core@0.14.4",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "name": "darling_core"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fnv-1.0.7",
+      "description": "Fowler–Noll–Vo hash function",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/fnv@1.0.7",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "Apache-2.0 OR MIT",
+      "licenseDeclared": "Apache-2.0 / MIT",
+      "name": "fnv"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ident_case-1.0.1",
+      "description": "Utility for applying case rules to Rust identifiers.",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/ident_case@1.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT/Apache-2.0",
+      "name": "ident_case"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-proc-macro2-1.0.63",
+      "description": "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/proc-macro2@1.0.63",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "proc-macro2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-unicode-ident-1.0.10",
+      "description": "Determine whether characters have the XID_Start or XID_Continue properties according to Unicode Standard Annex #31",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/unicode-ident@1.0.10",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "(MIT OR Apache-2.0) AND Unicode-DFS-2016",
+      "licenseDeclared": "(MIT OR Apache-2.0) AND Unicode-DFS-2016",
+      "name": "unicode-ident"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-quote-1.0.29",
+      "description": "Quasi-quoting macro quote!(...)",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/quote@1.0.29",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "quote"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-strsim-0.10.0",
+      "description": "Implementations of string similarity metrics. Includes Hamming, Levenshtein,\nOSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.\n",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/strsim@0.10.0",
+          "referenceType": "purl"
+        }
+      ],
+      "homepage": "https://github.com/dguo/strsim-rs",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "name": "strsim"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-syn-1.0.109",
+      "description": "Parser for Rust source code",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/syn@1.0.109",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "syn"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-darling_macro-0.14.4",
+      "description": "Internal support for a proc-macro library for reading attributes into structs when\nimplementing custom derives. Use https://crates.io/crates/darling in your code.\n",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/darling_macro@0.14.4",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "name": "darling_macro"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-serde-1.0.166",
+      "description": "A generic serialization/deserialization framework",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/serde@1.0.166",
+          "referenceType": "purl"
+        }
+      ],
+      "homepage": "https://serde.rs",
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "serde"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-serde_derive-1.0.166",
+      "description": "Macros 1.1 implementation of #[derive(Serialize, Deserialize)]",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/serde_derive@1.0.166",
+          "referenceType": "purl"
+        }
+      ],
+      "homepage": "https://serde.rs",
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "serde_derive"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-syn-2.0.23",
+      "description": "Parser for Rust source code",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/syn@2.0.23",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "syn"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-serde_json-1.0.99",
+      "description": "A JSON serialization file format",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/serde_json@1.0.99",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "serde_json"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-itoa-1.0.8",
+      "description": "Fast integer primitive to string conversion",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/itoa@1.0.8",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "itoa"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ryu-1.0.14",
+      "description": "Fast floating point to string conversion",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/ryu@1.0.14",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "Apache-2.0 OR BSL-1.0",
+      "licenseDeclared": "Apache-2.0 OR BSL-1.0",
+      "name": "ryu"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-thiserror-1.0.40",
+      "description": "derive(Error)",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/thiserror@1.0.40",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "thiserror"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-thiserror-impl-1.0.40",
+      "description": "Implementation detail of the `thiserror` crate",
+      "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:cargo/thiserror-impl@1.0.40",
+          "referenceType": "purl"
+        }
+      ],
+      "licenseConcluded": "MIT OR Apache-2.0",
+      "licenseDeclared": "MIT OR Apache-2.0",
+      "name": "thiserror-impl"
+    }
+  ],
+  "relationships": [
+    {
+      "relatedSpdxElement": "SPDXRef-Package-thiserror-1.0.40",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-spdx-0.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-serde_json-1.0.99",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-spdx-0.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-serde-1.0.166",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-spdx-0.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-derive_builder-0.12.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-spdx-0.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-anyhow-1.0.71",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-spdx-0.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-derive_builder_macro-0.12.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-1.0.109",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_macro-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-derive_builder_core-0.12.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_macro-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-1.0.109",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_core-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_core-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_core-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-darling-0.14.4",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-derive_builder_core-0.12.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-darling_macro-0.14.4",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-darling_core-0.14.4",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-1.0.109",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-strsim-0.10.0",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ident_case-1.0.1",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fnv-1.0.7",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_core-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-unicode-ident-1.0.10",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-proc-macro2-1.0.63"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-quote-1.0.29"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-unicode-ident-1.0.10",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-1.0.109"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-1.0.109"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-1.0.109"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-1.0.109",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_macro-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_macro-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-darling_core-0.14.4",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-darling_macro-0.14.4"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-serde_derive-1.0.166",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde-1.0.166"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-2.0.23",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_derive-1.0.166"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_derive-1.0.166"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_derive-1.0.166"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-unicode-ident-1.0.10",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-2.0.23"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-2.0.23"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-syn-2.0.23"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-serde-1.0.166",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_json-1.0.99"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ryu-1.0.14",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_json-1.0.99"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-itoa-1.0.8",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-serde_json-1.0.99"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-thiserror-impl-1.0.40",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-thiserror-1.0.40"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-syn-2.0.23",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-thiserror-impl-1.0.40"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-quote-1.0.29",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-thiserror-impl-1.0.40"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proc-macro2-1.0.63",
+      "relationshipType": "DEPENDS_ON",
+      "spdxElementId": "SPDXRef-Package-thiserror-impl-1.0.40"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-serde-spdx-0.3.1",
+      "relationshipType": "GENERATED_FROM",
+      "spdxElementId": "SPDXRef-File-serde-spdx"
+    }
+  ],
+  "spdxVersion": "SPDX-2.3"
+}

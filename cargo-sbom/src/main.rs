@@ -52,14 +52,34 @@
 //!   <rest of output omitted>
 //! ```
 //!
-
+//! ## Supported SBOM Features
+//!
+//! ### SPDX
+//!
+//! | SPDX Field                | Source                                                                                             |
+//! |---------------------------|----------------------------------------------------------------------------------------------------|
+//! | packages.SPDXID           |                                            Written as SPDXRef-Package-crate name-crate version     |
+//! | packages.description      |                                                         Read from Cargo.toml's "description" field |
+//! | packages.downloadLocation | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index")       |
+//! | packages.externalRefs     | If packages.downloadLocation is crates.io, written as a package url formatted string               |
+//! | packages.homepage         |                                                            Read from Cargo.toml's "homepage" field |
+//! | packages.licenseConcluded |                                                          Parsed from Cargo.toml's "homepage" field |
+//! | packages.licenseDeclared  |                                                             Read from Cargo.toml's "license" field |
+//! | packages.name             |                                                                Read from Cargo.toml's "name" field |
+//!
+//! ### CycloneDx
+//!
+//! None
+//!
+//!
 use anyhow::{anyhow, Ok, Result};
 use cargo_metadata::{CargoOpt, MetadataCommand};
 use clap::{Parser, ValueEnum};
-use std::{env, path::PathBuf};
+use std::{env, fmt::Debug, path::PathBuf};
 mod graph;
 use petgraph::visit::EdgeRef;
-use serde_spdx::spdx;
+
+mod util;
 
 pub mod built_info {
   // The file has been placed there by the build script.
@@ -125,7 +145,7 @@ fn try_main() -> Result<()> {
     return Err(anyhow!("Does not support cargo root workspaces yet. Rerun this tool targeting a specific package within the workspace (see --cargo-manifest-path)."));
   }
 
-  let creation_info = spdx::SpdxCreationInfoBuilder::default()
+  let creation_info = serde_spdx::spdx::SpdxCreationInfoBuilder::default()
     .created(
       chrono::Utc::now()
         .format("%Y-%m-%dT%H:%M:%S%.3fZ")
@@ -154,33 +174,68 @@ fn try_main() -> Result<()> {
   while let Some(nx) = dfs.next(&graph.graph) {
     let edges = graph.graph.edges(nx);
     let package = &graph.graph[nx];
-    packages.push(
-      spdx::SpdxItemPackagesBuilder::default()
-        .spdxid(format!(
-          "SPDXRef-Package-{}-{}",
-          package.name, package.version
-        ))
-        .download_location(
-          package
-            .source
-            .as_ref()
-            .map(|source| source.to_string())
-            .unwrap_or("NONE".to_string()),
-        )
-        // TODO: a lot of cargo license strings don't comply with SPDX due to "/" instead of OR
-        // TODO: should detect license file in package info
-        .license_declared(
+    let mut spdx_package_builder =
+      serde_spdx::spdx::SpdxItemPackagesBuilder::default();
+
+    spdx_package_builder
+      .spdxid(format!(
+        "SPDXRef-Package-{}-{}",
+        package.name, package.version
+      ))
+      .download_location(
+        package
+          .source
+          .as_ref()
+          .map(|source| source.to_string())
+          .unwrap_or("NONE".to_string()),
+      )
+      .license_concluded(
+        util::spdx::license::normalize_license_string(
           package.license.as_ref().unwrap_or(&"UNKNOWN".to_string()),
         )
-        .name(&package.name)
-        .build()?,
-    );
+        .unwrap_or("NOASSERTION".to_string()),
+      )
+      .name(&package.name);
+
+    if let Some(license_declared) = package.license.as_ref() {
+      spdx_package_builder.license_declared(license_declared);
+    }
+
+    if let Some(description) = package.description.as_ref() {
+      spdx_package_builder.description(description);
+    }
+
+    if let Some(homepage) = package.homepage.as_ref() {
+      spdx_package_builder.homepage(homepage);
+    }
+
+    if let Some(source) = package.source.as_ref() {
+      if source.is_crates_io() {
+        let purl = packageurl::PackageUrl::new::<&str, &str>(
+          "cargo",
+          package.name.as_ref(),
+        )
+        .expect("only fails if type is invalid")
+        .with_version(package.version.to_string())
+        .to_string();
+        let external_refs =
+          serde_spdx::spdx::SpdxItemPackagesItemExternalRefsBuilder::default()
+            .reference_category("PACKAGE-MANAGER")
+            .reference_type("purl")
+            .reference_locator(purl)
+            .build()?;
+        spdx_package_builder.external_refs(vec![external_refs]);
+      }
+    }
+
+    // spdx_package_builder.originator(package.authors.join(", "));
+    packages.push(spdx_package_builder.build()?);
 
     edges.for_each(|e| {
       let source = &graph.graph[e.source()];
       let target = &graph.graph[e.target()];
       relationships.push(
-        spdx::SpdxItemRelationshipsBuilder::default()
+        serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
           .spdx_element_id(format!(
             "SPDXRef-Package-{}-{}",
             source.name, source.version
@@ -204,7 +259,7 @@ fn try_main() -> Result<()> {
     .filter(|target| target.is_bin() || target.is_lib())
     .for_each(|target| {
       files.push(
-        spdx::SpdxItemFilesBuilder::default()
+        serde_spdx::spdx::SpdxItemFilesBuilder::default()
           .spdxid(format!("SPDXRef-File-{}", target.name))
           .checksums(vec![])
           .file_name(&target.name)
@@ -213,7 +268,7 @@ fn try_main() -> Result<()> {
           .unwrap(),
       );
       relationships.push(
-        spdx::SpdxItemRelationshipsBuilder::default()
+        serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
           .spdx_element_id(format!("SPDXRef-File-{}", target.name))
           .related_spdx_element(format!(
             "SPDXRef-Package-{}-{}",
@@ -226,7 +281,7 @@ fn try_main() -> Result<()> {
     });
 
   let uuid = uuid::Uuid::new_v4();
-  let spdx = spdx::SpdxBuilder::default()
+  let spdx = serde_spdx::spdx::SpdxBuilder::default()
     .spdxid("SPDXRef-DOCUMENT")
     .creation_info(creation_info)
     .data_license("CC0-1.0")

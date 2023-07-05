@@ -5,6 +5,7 @@ edition = "2021"
 description = "Create software bill of materials (SBOM) for Rust"
 license = "MIT"
 readme = "README.md"
+authors = ["Paul Sastrasinh <psastras@gmail.com>"]
 keywords = ["sbom", "spdx", "cyclonedx", "cli", "terminal"]
 categories = ["command-line-utilities"]
 homepage  = "https://github.com/psastras/sbom-rs"
@@ -17,11 +18,13 @@ cargo_metadata = "0.15.4"
 chrono = "0.4.26"
 clap = { version = "4.3.10", features = ["derive", "string"] }
 clap-cargo = "0.10.0"
+packageurl = "0.3.0"
 petgraph = "0.6.3"
 semver = "1.0.17"
 serde-cyclonedx = { path = "../serde-cyclonedx", version = "0.3.1" }
 serde-spdx = { path = "../serde-spdx", version = "0.3.1" }
 serde_json = "1.0.99"
+spdx = "0.10.1"
 
 [[bin]]
 name = "cargo-sbom"
