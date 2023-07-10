@@ -92,7 +92,6 @@ pub fn convert(
       let package = graph.graph[nx];
       let mut cyclonedx_component_builder =
         serde_cyclonedx::cyclonedx::ComponentBuilder::default();
-
       cyclonedx_component_builder
         .type_(if package.targets[0].is_lib() {
           "library"
@@ -110,6 +109,33 @@ pub fn convert(
         cyclonedx_component_builder.description(description);
       }
 
+      let mut external_references = vec![];
+      if let Some(documentation) = package.documentation.as_ref() {
+        external_references.push(
+          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
+            .type_("documentation")
+            .url(documentation)
+            .build()?,
+        )
+      }
+      if let Some(homepage) = package.homepage.as_ref() {
+        external_references.push(
+          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
+            .type_("website")
+            .url(homepage)
+            .build()?,
+        )
+      }
+      if let Some(repository) = package.repository.as_ref() {
+        external_references.push(
+          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
+            .type_("vcs")
+            .url(repository)
+            .build()?,
+        )
+      }
+
+      cyclonedx_component_builder.external_references(external_references);
       cyclonedx_component_builder.author(package.authors.join(", "));
 
       let cyclonedx_license =
