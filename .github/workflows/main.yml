@@ -24,8 +24,8 @@ jobs:
         with:
           command: check
 
-  test:
-    name: Test Suite
+  cargo-test:
+    name: Test Cargo Projects
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,6 +39,15 @@ jobs:
         with:
           files: codecov.json
           fail_ci_if_error: false
+  
+  gha-test:
+    name: Test GHA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./actions/install-cargo-sbom
+      - name: Run cargo-sbom
+        run: cargo-sbom 
 
   fmt:
     name: Rustfmt
@@ -72,7 +81,7 @@ jobs:
 
   publish:
     name: Publish
-    needs: [check, test, fmt, clippy]
+    needs: [check, cargo-test, gha-test, fmt, clippy]
     if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'release:')
     runs-on: ubuntu-latest
     steps:
@@ -89,7 +98,7 @@ jobs:
           args: --no-verify
   gh-release:
     name: Github Release Upload
-    needs: [check, test, fmt, clippy]
+    needs: [check, cargo-test, gha-test, fmt, clippy]
     if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'release:')
     strategy:
       matrix:
