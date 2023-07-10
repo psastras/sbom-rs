@@ -1,4 +1,4 @@
-# cargo-sbom-actions
+# actions
 
 Contains reusable configurations for use with Github Actions workflows. See the respective action READMEs for detailed documentation:
 
