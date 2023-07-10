@@ -32,7 +32,7 @@ fn test_spdx() -> Result<()> {
   let cmd =
     format!("{} --output-format=spdx", cargo_sbom_bin.to_str().unwrap());
 
-  let output = duct_sh::sh_dangerous(cmd.as_str())
+  let _ = duct_sh::sh_dangerous(cmd.as_str())
     .dir(cargo_manifest_directory)
     .unchecked()
     .env("NO_COLOR", "1")

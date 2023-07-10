@@ -52,20 +52,36 @@ $ cargo sbom
   <rest of output omitted>
 ```
 
+More examples can be found by browsing the [examples section](https://github.com/psastras/sbom-rs/tree/main/cargo-sbom/examples).
+
 ## Supported SBOM Features
 
 ### SPDX
 
-| SPDX Field                | Source                                                                                             |
-|---------------------------|----------------------------------------------------------------------------------------------------|
-| packages.SPDXID           |                                            Written as SPDXRef-Package-crate name-crate version     |
-| packages.description      |                                                         Read from Cargo.toml's "description" field |
-| packages.downloadLocation | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index")       |
-| packages.externalRefs     | If packages.downloadLocation is crates.io, written as a package url formatted string               |
-| packages.homepage         |                                                            Read from Cargo.toml's "homepage" field |
-| packages.licenseConcluded |                                                          Parsed from Cargo.toml's "homepage" field |
-| packages.licenseDeclared  |                                                             Read from Cargo.toml's "license" field |
-| packages.name             |                                                                Read from Cargo.toml's "name" field |
+| SPDX Field                       | Source                                                                                       |
+|----------------------------------|----------------------------------------------------------------------------------------------|
+| SPDXID                           | Set to "SPDXRef-Document"                                                                    |
+| creationInfo.created             | Set as the current time                                                                      |
+| creationInfo.creators            | Set to "Tool: cargo-sbom-v(tool version)                                                     |
+| dataLicense                      | Set to "CC0-1.0"                                                                             |
+| documentNamespace                | set to "https://spdx.org/spdxdocs/(crate-name)-(uuidv4)"                                     |
+| files                            | parsed from Cargo.toml target names                                                          |
+| name                             | Set to the project folder name                                                               |
+| packages                         | Set to dependencies parsed from cargo-metadata                                               |
+| packages.SPDXID                  | Written as SPDXRef-Package-(crate name)-(crate version)                                      |
+| packages.description             | Read from Cargo.toml's "description" field                                                   |
+| packages.downloadLocation        | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index") |
+| packages.externalRefs            | If packages.downloadLocation is crates.io, written as a package url formatted string         |
+| packages.homepage                | Read from Cargo.toml's "homepage" field                                                      |
+| packages.licenseConcluded        | Parsed into a SPDX compliant license identifier from Cargo.toml's "license" field            |
+| packages.licenseDeclared         | Read from Cargo.toml's "license" field                                                       |
+| packages.name                    | Read from Cargo.toml's "name" field                                                          |
+| relationships                    | Set to dependency relationships parsed from cargo-metadata                                   |
+| relationships.relationshipType   | Set to dependency relationship parsed from cargo-metadata                                    |
+| relationships.spdxElementId      | Set to dependency relationship source parsed from cargo-metadata                             |
+| relationships.relatedSpdxElement | Set to dependency relationship target parsed from cargo-metadata                             |
+
+
 
 ### CycloneDx
 

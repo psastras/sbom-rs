@@ -68,6 +68,8 @@ See each subproject for more detailed information:
   SPDX information using [serde](https://serde.rs/). See the
   [Rust documentation](https://docs.rs/serde_spdx/).
 
+[Also check the example.](https://github.com/psastras/sbom-rs/tree/main/cargo-sbom/examples)
+
 ## Development
 
 Before you begin, ensure the following programs are available on your machine:
