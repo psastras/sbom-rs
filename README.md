@@ -74,7 +74,7 @@ corresponding Github release.
 cargo install cargo-sbom
 ```
 
-### #Cargo-binstall
+#### Cargo-binstall
 
 ```shell
 cargo binstall cargo-sbom
@@ -104,7 +104,7 @@ See each subproject for more detailed information:
 - `serde-spdx`: Typesafe SPDX structures for serializing and deserializing
   SPDX information using [serde](https://serde.rs/). See the
   [Rust documentation](https://docs.rs/serde_spdx/).
-- `cargo-sbom-actions`: Github actions to use `cargo-sbom` and related tools in CI workflows See the [README.md](https://github.com/psastras/sbom-rs/tree/main/actions/README.md) for documentaiton.
+- `actions`: Github actions to use `cargo-sbom` and related tools in CI workflows See the [README.md](https://github.com/psastras/sbom-rs/tree/main/actions/README.md) for documentaiton.
 
 [Also check the examples.](https://github.com/psastras/sbom-rs/tree/main/examples)
 
