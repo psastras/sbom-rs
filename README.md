@@ -7,7 +7,7 @@ A group of Rust projects for interacting with and producing software bill of mat
 
 ## Example
 
-## Create a SPDX SBOM for a Cargo project
+### Create a SPDX SBOM for a Cargo project
 
 In a shell:
 
@@ -28,7 +28,7 @@ $ cargo sbom
   <rest of output omitted>
 ```
 
-## Create a CycloneDx SBOM in Github Actions
+### Create a CycloneDx SBOM in Github Actions
 
 In a Github Actions workflow:
 
