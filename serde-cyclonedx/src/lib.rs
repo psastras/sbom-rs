@@ -18,26 +18,26 @@
 //!
 //! ## Usage
 //!
-//! For most cases, simply use the root [cyclonedx::CycloneDx] struct with [serde] to read
+//! For most cases, simply use the root [cyclonedx::v_1_4::CycloneDx] struct with [serde] to read
 //! and write to and from the struct.
 //!
 //! ## Example
 //!
 //! ```rust
-//! use serde_cyclonedx::cyclonedx::CycloneDx;
+//! use serde_cyclonedx::cyclonedx::v_1_4::CycloneDx;
 //!
 //! let data = fs::read_to_string("sbom.cyclonedx.json");
 //! let cyclonedx: CycloneDx = serde_json::from_str(&data).unwrap();
 //! ```
 //!
-//! Because many of the [cyclonedx::CycloneDx] structures contain a lot of optional fields,
+//! Because many of the [cyclonedx::v_1_4::CycloneDx] structures contain a lot of optional fields,
 //! it is often convenient to use the builder pattern to contstruct these structs.
 //! Each structure has a builder with a default.
 //!
 //! ## Example
 //!
 //! ```rust
-//! use serde_cyclonedx::cyclonedx::CycloneDxBuilder;
+//! use serde_cyclonedx::cyclonedx::v_1_4::CycloneDxBuilder;
 //!
 //! let cyclonedx = CycloneDxBuilder::default()
 //!   .bom_format("CycloneDX")
@@ -49,7 +49,7 @@
 //!
 //! ## Internal Implementation Details
 //!
-//! The root [cyclonedx::CycloneDx] struct is automatically generated from the latest CycloneDX
-//! JSON schema, this is done at build time (via the buildscript).
+//! The root struct is automatically generated from the parsed CycloneDX JSON schemas, this is done at build time (via the buildscript).
+//!
 
 pub mod cyclonedx;

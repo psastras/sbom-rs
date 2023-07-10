@@ -18,26 +18,26 @@ the official website:
 
 ## Usage
 
-For most cases, simply use the root [spdx::Spdx] struct with [serde] to read
+For most cases, simply use the root [spdx::v_2_3::Spdx] struct with [serde] to read
 and write to and from the struct.
 
 ## Example
 
 ```rust
-use serde_spdx::spdx::Spdx;
+use serde_spdx::spdx::v_2_3::Spdx;
 
 let data = fs::read_to_string("sbom.spdx.json");
 let spdx: Spdx = serde_json::from_str(&data).unwrap();
 ```
 
-Because many of the [spdx::SPDX] structures contain a lot of optional fields,
+Because many of the [spdx::v_2_3::Spdx] structures contain a lot of optional fields,
 it is often convenient to use the builder pattern to contstruct these structs.
 Each structure has a builder with a default.
 
 ## Example
 
 ```rust
-use serde_spdx::spdx::SpdxCreationInfoBuilder;
+use serde_spdx::spdx::v_2_3::SpdxCreationInfoBuilder;
 
 let creation_info = SpdxCreationInfoBuilder::default()
   .created("created")
@@ -48,7 +48,7 @@ let creation_info = SpdxCreationInfoBuilder::default()
 
 ## Internal Implementation Details
 
-The root [spdx::Spdx] struct is automatically generated from the latest SPDX
+The root struct is automatically generated from the parsed SPDX
 JSON schema, this is done at build time (via the buildscript).
 
 License: MIT
