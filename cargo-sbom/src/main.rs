@@ -53,7 +53,11 @@
 //!           Print version
 //! ```
 //!
-//! ## Example
+//! ## Examples
+//!
+//! ### Create a SPDX SBOM for a Cargo project
+//!
+//! In a shell:
 //!
 //! ```shell
 //! $ cargo sbom
@@ -70,6 +74,37 @@
 //!   "files": [
 //!     {
 //!   <rest of output omitted>
+//! ```
+//!
+//! ### Create a CycloneDx SBOM in Github Actions
+//!
+//! In a Github Actions workflow:
+//!
+//! ```yaml
+//! jobs:
+//!   sbom:
+//!     runs-on: ubuntu-latest
+//!     steps:
+//!     - uses: actions/checkout@v3
+//!     - uses: psastras/sbom-rs/actions/install-cargo-sbom@cargo-sbom-latest
+//!     - name: Run cargo-sbom
+//!       run: cargo-sbom --output-format=cyclone_dx_json_1_4
+//! ```
+//!
+//! ### Check Dependencies against the Open Source Vulnerability Database (OSV)
+//!
+//! Assumming `osv-scanner` is installed (see [https://osv.dev/](https://osv.dev/))
+//!
+//! ```shell
+//! $ cargo-sbom > sbom.spdx.json
+//! $ osv-scanner --sbom=sbom.spdx.json
+//! Scanned sbom.json as SPDX SBOM and found 91 packages
+//! ╭─────────────────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────╮
+//! │ OSV URL                             │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE    │
+//! ├─────────────────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────┤
+//! │ https://osv.dev/GHSA-wcg3-cvx6-7396 │ 6.2, │ crates.io │ time    │ 0.1.45  │ sbom.json │
+//! │ https://osv.dev/RUSTSEC-2020-0071   │ 6.2  │           │         │         │           │
+//! ╰─────────────────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────╯
 //! ```
 //!
 //! More examples can be found by browsing the [examples section](https://github.com/psastras/sbom-rs/tree/main/examples).

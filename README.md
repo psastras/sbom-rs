@@ -7,7 +7,9 @@ A group of Rust projects for interacting with and producing software bill of mat
 
 ## Examples
 
-### Create a SPDX SBOM for a Cargo project
+### cargo-sbom
+
+#### Create a SPDX SBOM for a Cargo project
 
 In a shell:
 
@@ -28,7 +30,7 @@ $ cargo sbom
   <rest of output omitted>
 ```
 
-### Create a CycloneDx SBOM in Github Actions
+#### Create a CycloneDx SBOM in Github Actions
 
 In a Github Actions workflow:
 
@@ -43,7 +45,7 @@ jobs:
       run: cargo-sbom --output-format=cyclone_dx_json_1_4
 ```
 
-### Check Dependencies against the Open Source Vulnerability Database (OSV)
+#### Check Dependencies against the Open Source Vulnerability Database (OSV)
 
 Assumming `osv-scanner` is installed (see [https://osv.dev/](https://osv.dev/))
 
@@ -61,22 +63,24 @@ Scanned sbom.json as SPDX SBOM and found 91 packages
 
 ## Install
 
+### cargo-sbom
+
 `cargo-sbom` may be installed via `cargo`, [cargo-binstall](https://github.com/cargo-bins/cargo-binstall) or directly downloaded from the
 corresponding Github release.
 
-### Cargo
+#### Cargo
 
 ```shell
 cargo install cargo-sbom
 ```
 
-### Cargo-binstall
+### #Cargo-binstall
 
 ```shell
 cargo binstall cargo-sbom
 ```
 
-### Github Releases
+#### Github Releases
 
 The latest version is
 [continuously published and tagged](https://github.com/psastras/sbom-rs/releases).
