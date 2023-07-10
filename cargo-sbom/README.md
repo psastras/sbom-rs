@@ -52,7 +52,7 @@ $ cargo sbom
   <rest of output omitted>
 ```
 
-More examples can be found by browsing the [examples section](https://github.com/psastras/sbom-rs/tree/main/cargo-sbom/examples).
+More examples can be found by browsing the [examples section](https://github.com/psastras/sbom-rs/tree/main/examples).
 
 ## Supported SBOM Features
 
@@ -80,7 +80,6 @@ More examples can be found by browsing the [examples section](https://github.com
 | relationships.relationshipType   | Set to dependency relationship parsed from cargo-metadata                                    |
 | relationships.spdxElementId      | Set to dependency relationship source parsed from cargo-metadata                             |
 | relationships.relatedSpdxElement | Set to dependency relationship target parsed from cargo-metadata                             |
-
 
 
 ### CycloneDx
