@@ -29,8 +29,10 @@ fn test_spdx() -> Result<()> {
     .iter(),
   ))?;
 
-  let cmd =
-    format!("{} --output-format=spdx", cargo_sbom_bin.to_str().unwrap());
+  let cmd = format!(
+    "{} --output-format=spdx_json_2_3",
+    cargo_sbom_bin.to_str().unwrap()
+  );
 
   let _ = duct_sh::sh_dangerous(cmd.as_str())
     .dir(cargo_manifest_directory)

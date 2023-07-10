@@ -141,11 +141,12 @@ pub mod built_info {
   include!(concat!(env!("OUT_DIR"), "/built.rs"));
 }
 
-#[derive(ValueEnum, Debug, Clone)] // ArgEnum here
+#[derive(ValueEnum, Debug, Clone, PartialEq, Eq)]
 #[clap(rename_all = "snake_case")]
+#[allow(non_camel_case_types)]
 enum OutputFormat {
-  Spdx,
-  CycloneDx,
+  SpdxJson_2_3,
+  CycloneDxJson_1_4,
 }
 
 fn get_default_cargo_manifest_path() -> PathBuf {
@@ -164,7 +165,7 @@ struct Opt {
     help = "The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace."
   )]
   cargo_package: Option<String>,
-  #[clap(long, value_enum, help = "The SBOM output format.", default_value_t = OutputFormat::Spdx)]
+  #[clap(long, value_enum, help = "The SBOM output format.", default_value_t = OutputFormat::SpdxJson_2_3)]
   output_format: OutputFormat,
   #[clap(
     long,
@@ -220,14 +221,14 @@ fn try_main() -> Result<()> {
 
   let graph = graph::build(&metadata)?;
 
-  if matches!(opt.output_format, OutputFormat::CycloneDx) {
+  if matches!(opt.output_format, OutputFormat::CycloneDxJson_1_4) {
     let cyclonedx = util::cyclonedx::convert(
       opt.cargo_package,
       opt.project_directory,
       &graph,
     )?;
     println!("{}", serde_json::to_string_pretty(&cyclonedx)?);
-  } else if matches!(opt.output_format, OutputFormat::Spdx) {
+  } else if matches!(opt.output_format, OutputFormat::SpdxJson_2_3) {
     let spdx =
       util::spdx::convert(opt.cargo_package, opt.project_directory, &graph)?;
     println!("{}", serde_json::to_string_pretty(&spdx)?);
