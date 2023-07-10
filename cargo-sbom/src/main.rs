@@ -131,7 +131,9 @@
 use anyhow::{anyhow, Ok, Result};
 use cargo_metadata::{CargoOpt, MetadataCommand};
 use clap::{Parser, ValueEnum};
+use std::io::Write;
 use std::{env, fmt::Debug, path::PathBuf};
+
 mod graph;
 
 mod util;
@@ -227,11 +229,19 @@ fn try_main() -> Result<()> {
       opt.project_directory,
       &graph,
     )?;
-    println!("{}", serde_json::to_string_pretty(&cyclonedx)?);
+    writeln!(
+      std::io::stdout(),
+      "{}",
+      serde_json::to_string_pretty(&cyclonedx)?
+    )?;
   } else if matches!(opt.output_format, OutputFormat::SpdxJson_2_3) {
     let spdx =
       util::spdx::convert(opt.cargo_package, opt.project_directory, &graph)?;
-    println!("{}", serde_json::to_string_pretty(&spdx)?);
+    writeln!(
+      std::io::stdout(),
+      "{}",
+      serde_json::to_string_pretty(&spdx)?
+    )?;
   }
 
   Ok(())
