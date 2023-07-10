@@ -66,11 +66,11 @@ $ cargo sbom
   "creationInfo": {
     "created": "2023-07-04T12:38:15.211Z",
     "creators": [
-      "Tool: cargo-sbom-v0.7.2"
+      "Tool: cargo-sbom-v0.8.0"
     ]
   },
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.7.2-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.8.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
   "files": [
     {
   <rest of output omitted>
