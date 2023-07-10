@@ -1,0 +1,659 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-anstyle-parse-0.2.1",
+      "description": "Parse ANSI Style Escapes",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "anstyle-parse",
+      "purl": "pkg:cargo/anstyle-parse@0.2.1",
+      "type": "library",
+      "version": "0.2.1"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-anstyle-wincon-1.0.1",
+      "description": "Styling legacy Windows terminals",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "anstyle-wincon",
+      "purl": "pkg:cargo/anstyle-wincon@1.0.1",
+      "type": "library",
+      "version": "1.0.1"
+    },
+    {
+      "author": "The Rust Project Developers",
+      "bom-ref": "CycloneDxRef-Component-bitflags-2.3.3",
+      "description": "A macro to generate structures which behave like bitflags.\n",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "bitflags",
+      "purl": "pkg:cargo/bitflags@2.3.3",
+      "type": "library",
+      "version": "2.3.3"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-anstyle-1.0.1",
+      "description": "ANSI text styling",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "anstyle",
+      "purl": "pkg:cargo/anstyle@1.0.1",
+      "type": "library",
+      "version": "1.0.1"
+    },
+    {
+      "author": "Joe Wilm <joe@jwilm.com>, Christian Duerr <contact@christianduerr.com>",
+      "bom-ref": "CycloneDxRef-Component-utf8parse-0.2.1",
+      "description": "Table-driven UTF-8 parser",
+      "licenses": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "name": "utf8parse",
+      "purl": "pkg:cargo/utf8parse@0.2.1",
+      "type": "library",
+      "version": "0.2.1"
+    },
+    {
+      "author": "Stefan Lankes",
+      "bom-ref": "CycloneDxRef-Component-hermit-abi-0.3.2",
+      "description": "Hermit system calls definitions.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "hermit-abi",
+      "purl": "pkg:cargo/hermit-abi@0.3.2",
+      "type": "library",
+      "version": "0.3.2"
+    },
+    {
+      "author": "Dan Gohman <dev@sunfishcode.online>, Jakub Konka <kubkon@jakubkonka.com>",
+      "bom-ref": "CycloneDxRef-Component-rustix-0.38.3",
+      "description": "Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls",
+      "licenses": [
+        {
+          "expression": "Apache-2.0 OR Apache-2.0 OR MIT"
+        }
+      ],
+      "name": "rustix",
+      "purl": "pkg:cargo/rustix@0.38.3",
+      "type": "library",
+      "version": "0.38.3"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_aarch64_msvc-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_aarch64_msvc",
+      "purl": "pkg:cargo/windows_aarch64_msvc@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-clap_lex-0.6.0",
+      "description": "Minimal, flexible command line parser",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "clap_lex",
+      "purl": "pkg:cargo/clap_lex@0.6.0",
+      "type": "library",
+      "version": "0.6.0"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_x86_64_gnu-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_x86_64_gnu",
+      "purl": "pkg:cargo/windows_x86_64_gnu@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "Without Boats <woboats@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-heck-0.4.1",
+      "description": "heck is a case conversion library.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "heck",
+      "purl": "pkg:cargo/heck@0.4.1",
+      "type": "library",
+      "version": "0.4.1"
+    },
+    {
+      "author": "David Tolnay <dtolnay@gmail.com>, Alex Crichton <alex@alexcrichton.com>",
+      "bom-ref": "CycloneDxRef-Component-proc-macro2-1.0.64",
+      "description": "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "proc-macro2",
+      "purl": "pkg:cargo/proc-macro2@1.0.64",
+      "type": "library",
+      "version": "1.0.64"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_i686_gnu-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_i686_gnu",
+      "purl": "pkg:cargo/windows_i686_gnu@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-clap-4.3.11",
+      "description": "A simple to use, efficient, and full-featured Command Line Argument Parser",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "clap",
+      "purl": "pkg:cargo/clap@4.3.11",
+      "type": "library",
+      "version": "4.3.11"
+    },
+    {
+      "author": "David Tolnay <dtolnay@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-unicode-ident-1.0.10",
+      "description": "Determine whether characters have the XID_Start or XID_Continue properties according to Unicode Standard Annex #31",
+      "licenses": [
+        {
+          "expression": "(MIT OR Apache-2.0) AND Unicode-DFS-2016"
+        }
+      ],
+      "name": "unicode-ident",
+      "purl": "pkg:cargo/unicode-ident@1.0.10",
+      "type": "library",
+      "version": "1.0.10"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_i686_msvc-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_i686_msvc",
+      "purl": "pkg:cargo/windows_i686_msvc@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "softprops <d.tangren@gmail.com>, Dan Gohman <dev@sunfishcode.online>",
+      "bom-ref": "CycloneDxRef-Component-is-terminal-0.4.9",
+      "description": "Test whether a given stream is a terminal",
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "is-terminal",
+      "purl": "pkg:cargo/is-terminal@0.4.9",
+      "type": "library",
+      "version": "0.4.9"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_x86_64_msvc-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_x86_64_msvc",
+      "purl": "pkg:cargo/windows_x86_64_msvc@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "Danny Guo <danny@dannyguo.com>",
+      "bom-ref": "CycloneDxRef-Component-strsim-0.10.0",
+      "description": "Implementations of string similarity metrics. Includes Hamming, Levenshtein,\nOSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.\n",
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "strsim",
+      "purl": "pkg:cargo/strsim@0.10.0",
+      "type": "library",
+      "version": "0.10.0"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-clap_derive-4.3.2",
+      "description": "Parse command line argument by defining a struct, derive crate.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "clap_derive",
+      "purl": "pkg:cargo/clap_derive@4.3.2",
+      "type": "application",
+      "version": "4.3.2"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_aarch64_gnullvm-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_aarch64_gnullvm",
+      "purl": "pkg:cargo/windows_aarch64_gnullvm@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows_x86_64_gnullvm-0.48.0",
+      "description": "Import lib for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows_x86_64_gnullvm",
+      "purl": "pkg:cargo/windows_x86_64_gnullvm@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "David Tolnay <dtolnay@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-syn-2.0.25",
+      "description": "Parser for Rust source code",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "syn",
+      "purl": "pkg:cargo/syn@2.0.25",
+      "type": "library",
+      "version": "2.0.25"
+    },
+    {
+      "author": "The Rust Project Developers",
+      "bom-ref": "CycloneDxRef-Component-libc-0.2.147",
+      "description": "Raw FFI bindings to platform libraries like libc.\n",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "libc",
+      "purl": "pkg:cargo/libc@0.2.147",
+      "type": "library",
+      "version": "0.2.147"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows-targets-0.48.1",
+      "description": "Import libs for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows-targets",
+      "purl": "pkg:cargo/windows-targets@0.48.1",
+      "type": "library",
+      "version": "0.48.1"
+    },
+    {
+      "author": "Microsoft",
+      "bom-ref": "CycloneDxRef-Component-windows-sys-0.48.0",
+      "description": "Rust for Windows",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "windows-sys",
+      "purl": "pkg:cargo/windows-sys@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "author": "Chris Wong <lambda.fairy@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-errno-0.3.1",
+      "description": "Cross-platform interface to the `errno` variable.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "errno",
+      "purl": "pkg:cargo/errno@0.3.1",
+      "type": "library",
+      "version": "0.3.1"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-clap_builder-4.3.11",
+      "description": "A simple to use, efficient, and full-featured Command Line Argument Parser",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "clap_builder",
+      "purl": "pkg:cargo/clap_builder@4.3.11",
+      "type": "library",
+      "version": "4.3.11"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-colorchoice-1.0.0",
+      "description": "Global override of color control",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "colorchoice",
+      "purl": "pkg:cargo/colorchoice@1.0.0",
+      "type": "library",
+      "version": "1.0.0"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-anstyle-query-1.0.0",
+      "description": "Look up colored console capabilities",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "anstyle-query",
+      "purl": "pkg:cargo/anstyle-query@1.0.0",
+      "type": "library",
+      "version": "1.0.0"
+    },
+    {
+      "author": "Aleksey Kladov <aleksey.kladov@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-once_cell-1.18.0",
+      "description": "Single assignment cells and lazy values.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "once_cell",
+      "purl": "pkg:cargo/once_cell@1.18.0",
+      "type": "library",
+      "version": "1.18.0"
+    },
+    {
+      "author": "Dan Gohman <dev@sunfishcode.online>",
+      "bom-ref": "CycloneDxRef-Component-linux-raw-sys-0.4.3",
+      "description": "Generated bindings for Linux's userspace API",
+      "licenses": [
+        {
+          "expression": "Apache-2.0 OR Apache-2.0 OR MIT"
+        }
+      ],
+      "name": "linux-raw-sys",
+      "purl": "pkg:cargo/linux-raw-sys@0.4.3",
+      "type": "library",
+      "version": "0.4.3"
+    },
+    {
+      "author": "Michael Neumann <mneumann@ntecs.de>",
+      "bom-ref": "CycloneDxRef-Component-errno-dragonfly-0.1.2",
+      "description": "Exposes errno functionality to stable Rust on DragonFlyBSD",
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "errno-dragonfly",
+      "purl": "pkg:cargo/errno-dragonfly@0.1.2",
+      "type": "library",
+      "version": "0.1.2"
+    },
+    {
+      "author": "",
+      "bom-ref": "CycloneDxRef-Component-anstream-0.3.2",
+      "description": "A simple cross platform library for writing colored text to a terminal.",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "anstream",
+      "purl": "pkg:cargo/anstream@0.3.2",
+      "type": "library",
+      "version": "0.3.2"
+    },
+    {
+      "author": "David Tolnay <dtolnay@gmail.com>",
+      "bom-ref": "CycloneDxRef-Component-quote-1.0.29",
+      "description": "Quasi-quoting macro quote!(...)",
+      "licenses": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "name": "quote",
+      "purl": "pkg:cargo/quote@1.0.29",
+      "type": "library",
+      "version": "1.0.29"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-utf8parse-0.2.1"
+      ],
+      "ref": "CycloneDxRef-Component-anstyle-parse-0.2.1"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-unicode-ident-1.0.10"
+      ],
+      "ref": "CycloneDxRef-Component-proc-macro2-1.0.64"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-clap-4.3.11"
+      ],
+      "ref": "CycloneDxRef-Component-cargo-binary-0.1.0"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-libc-0.2.147"
+      ],
+      "ref": "CycloneDxRef-Component-errno-dragonfly-0.1.2"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-clap_derive-4.3.2",
+        "CycloneDxRef-Component-once_cell-1.18.0",
+        "CycloneDxRef-Component-clap_builder-4.3.11"
+      ],
+      "ref": "CycloneDxRef-Component-clap-4.3.11"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-windows-sys-0.48.0",
+        "CycloneDxRef-Component-libc-0.2.147",
+        "CycloneDxRef-Component-errno-dragonfly-0.1.2"
+      ],
+      "ref": "CycloneDxRef-Component-errno-0.3.1"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-anstyle-1.0.1",
+        "CycloneDxRef-Component-anstream-0.3.2",
+        "CycloneDxRef-Component-strsim-0.10.0",
+        "CycloneDxRef-Component-clap_lex-0.6.0"
+      ],
+      "ref": "CycloneDxRef-Component-clap_builder-4.3.11"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-anstyle-query-1.0.0",
+        "CycloneDxRef-Component-anstyle-parse-0.2.1",
+        "CycloneDxRef-Component-colorchoice-1.0.0",
+        "CycloneDxRef-Component-anstyle-1.0.1",
+        "CycloneDxRef-Component-utf8parse-0.2.1",
+        "CycloneDxRef-Component-anstyle-wincon-1.0.1",
+        "CycloneDxRef-Component-is-terminal-0.4.9"
+      ],
+      "ref": "CycloneDxRef-Component-anstream-0.3.2"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-windows-sys-0.48.0"
+      ],
+      "ref": "CycloneDxRef-Component-anstyle-query-1.0.0"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-anstyle-1.0.1",
+        "CycloneDxRef-Component-windows-sys-0.48.0"
+      ],
+      "ref": "CycloneDxRef-Component-anstyle-wincon-1.0.1"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-linux-raw-sys-0.4.3",
+        "CycloneDxRef-Component-windows-sys-0.48.0",
+        "CycloneDxRef-Component-errno-0.3.1",
+        "CycloneDxRef-Component-libc-0.2.147",
+        "CycloneDxRef-Component-bitflags-2.3.3"
+      ],
+      "ref": "CycloneDxRef-Component-rustix-0.38.3"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-quote-1.0.29",
+        "CycloneDxRef-Component-unicode-ident-1.0.10",
+        "CycloneDxRef-Component-proc-macro2-1.0.64"
+      ],
+      "ref": "CycloneDxRef-Component-syn-2.0.25"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-windows_x86_64_msvc-0.48.0",
+        "CycloneDxRef-Component-windows_aarch64_gnullvm-0.48.0",
+        "CycloneDxRef-Component-windows_i686_msvc-0.48.0",
+        "CycloneDxRef-Component-windows_x86_64_gnu-0.48.0",
+        "CycloneDxRef-Component-windows_aarch64_msvc-0.48.0",
+        "CycloneDxRef-Component-windows_i686_gnu-0.48.0",
+        "CycloneDxRef-Component-windows_x86_64_gnullvm-0.48.0"
+      ],
+      "ref": "CycloneDxRef-Component-windows-targets-0.48.1"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-windows-sys-0.48.0",
+        "CycloneDxRef-Component-rustix-0.38.3",
+        "CycloneDxRef-Component-hermit-abi-0.3.2"
+      ],
+      "ref": "CycloneDxRef-Component-is-terminal-0.4.9"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-proc-macro2-1.0.64"
+      ],
+      "ref": "CycloneDxRef-Component-quote-1.0.29"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-windows-targets-0.48.1"
+      ],
+      "ref": "CycloneDxRef-Component-windows-sys-0.48.0"
+    },
+    {
+      "dependsOn": [
+        "CycloneDxRef-Component-heck-0.4.1",
+        "CycloneDxRef-Component-syn-2.0.25",
+        "CycloneDxRef-Component-quote-1.0.29",
+        "CycloneDxRef-Component-proc-macro2-1.0.64"
+      ],
+      "ref": "CycloneDxRef-Component-clap_derive-4.3.2"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "components": [
+        {
+          "author": "",
+          "bom-ref": "CycloneDxRef-Component-cargo-binary-0.1.0",
+          "licenses": [
+            {
+              "expression": "NOASSERTION"
+            }
+          ],
+          "name": "cargo-binary",
+          "type": "application",
+          "version": "0.1.0"
+        }
+      ],
+      "name": "cargo-binary",
+      "type": "application"
+    },
+    "tools": [
+      {
+        "name": "cargo-sbom",
+        "version": "0.6.0"
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:0a381867-e74e-4dd0-bcb2-45a58d4a270d",
+  "specVersion": "1.4",
+  "version": 1
+}

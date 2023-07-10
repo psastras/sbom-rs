@@ -33,6 +33,26 @@ curl -sSL https://github.com/psastras/sbom-rs/releases/download/cargo-sbom-lates
 
 For most cases, simply `cd` into a cargo workspace and run `cargo sbom`.
 
+### `--help`
+
+```
+Create software bill of materials (SBOM) for Rust
+
+Usage: cargo sbom [OPTIONS]
+
+Options:
+      --cargo-package <CARGO_PACKAGE>
+          The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace.
+      --output-format <OUTPUT_FORMAT>
+          The SBOM output format. [default: spdx] [possible values: spdx, cyclone_dx]
+      --project-directory <PROJECT_DIRECTORY>
+          The directory to the Cargo project. [default: .]
+  -h, --help
+          Print help
+  -V, --version
+          Print version
+```
+
 ## Example
 
 ```shell
@@ -42,11 +62,11 @@ $ cargo sbom
   "creationInfo": {
     "created": "2023-07-04T12:38:15.211Z",
     "creators": [
-      "Tool: cargo-sbom-v0.5.0"
+      "Tool: cargo-sbom-v0.6.0"
     ]
   },
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.5.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+  "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.6.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
   "files": [
     {
   <rest of output omitted>
@@ -84,6 +104,29 @@ More examples can be found by browsing the [examples section](https://github.com
 
 ### CycloneDx
 
-None
+| CycloneDx Field               | Source                                                                            |
+|-------------------------------|-----------------------------------------------------------------------------------|
+| bomFormat                     | Set to "CycloneDX"                                                                |
+| serialNumber                  | Set to "urn:uuid:(uuidv4)"                                                        |
+| specVersion                   | Set to 1.4                                                                        |
+| version                       | Set to 1                                                                          |
+| metadata                      |                                                                                   |
+| metadata.component            | parsed from the root workspace                                                    |
+| metadata.component.name       | Set to the root workspace folder name                                             |
+| metadata.component.type       | Set to "application"                                                              |
+| metadata.component.components | Set to each of the cargo workspace package components                             |
+| components                    | Set to the componennts parse from cargo-metadata                                  |
+| components.author             | Read from Cargo.toml's "authors" field                                            |
+| components.bom-ref            | Set to "CycloneDxRef-Component-(crate-name)-(crate-version)"                      |
+| components.description        | Read from Cargo.toml's "description" field                                        |
+| copmonents.licenses           | Parsed into a SPDX compliant license identifier from Cargo.toml's "license" field |
+| components.name               | Read from Cargo.toml's "name" field                                               |
+| components.purl               | If the download location is crates.io, written as a package url formatted string  |
+| components.type               | Read from cargo-metadata crate type                                               |
+| components.version            | Read from Cargo.toml's "version" field                                            |
+| dependencies                  | Set to dependency relationships parsed from cargo-metadata                        |
+| dependencies.ref              | Set to source dependency reference id string                                      |
+| dependencies.dependsOnn       | Set to target dependencies reference id strings                                   |
+
 
 License: MIT
