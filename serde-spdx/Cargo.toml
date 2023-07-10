@@ -1,6 +1,6 @@
 [package]
 name = "serde-spdx"
-version = "0.7.1"
+version = "0.7.2"
 authors = ["Paul Sastrasinh <psastras@gmail.com>"]
 edition = "2018"
 description = "Serde serialization for SPDX files"
