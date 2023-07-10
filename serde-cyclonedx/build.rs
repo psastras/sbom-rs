@@ -4,6 +4,7 @@ use std::io::Write;
 use std::path::Path;
 use std::path::PathBuf;
 
+use anyhow::Ok;
 use anyhow::Result;
 use schemafy_lib::Expander;
 use schemafy_lib::Schema;
@@ -86,10 +87,13 @@ fn process_token_stream(input: proc_macro2::TokenStream) -> syn::File {
   ast
 }
 
-fn main() -> Result<()> {
-  // Rerun if the schema changes
-  println!("cargo:rerun-if-changed=src/schema.json");
-  let path = Path::new("src/schema.json");
+fn generate_schema(version_str: &str) -> Result<()> {
+  println!(
+    "cargo:rerun-if-changed=schemas/cyclonedx_{}.json",
+    version_str
+  );
+  let path_str = format!("schemas/cyclonedx_{}.json", version_str);
+  let path = Path::new(&path_str);
 
   // Generate the Rust schema struct
   let json = std::fs::read_to_string(path).unwrap();
@@ -100,8 +104,15 @@ fn main() -> Result<()> {
 
   // Write the struct to the $OUT_DIR/cyclonedx.rs file.
   let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
-  let mut file = File::create(out_path.join("cyclonedx.rs"))?;
+  let mut file =
+    File::create(out_path.join(format!("cyclonedx_{}.rs", version_str)))?;
   file.write_all(prettyplease::unparse(&generated).as_bytes())?;
+  Ok(())
+}
+
+fn main() -> Result<()> {
+  generate_schema("1_4")?;
+  generate_schema("1_5")?;
 
   Ok(())
 }
