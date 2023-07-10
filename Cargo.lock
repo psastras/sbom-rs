@@ -150,7 +150,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-sbom"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "anyhow",
  "built",
@@ -728,7 +728,7 @@ dependencies = [
 
 [[package]]
 name = "serde-cyclonedx"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "anyhow",
  "derive_builder",
@@ -744,7 +744,7 @@ dependencies = [
 
 [[package]]
 name = "serde-spdx"
-version = "0.8.2"
+version = "0.8.3"
 dependencies = [
  "anyhow",
  "derive_builder",
