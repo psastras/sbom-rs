@@ -208,6 +208,12 @@ pub fn convert(
               .version(built_info::PKG_VERSION)
               .build()?,
           ])
+          .authors(vec![serde_cyclonedx::cyclonedx::v_1_4::OrganizationalContactBuilder::default().name(whoami::realname()).build()?])
+          .timestamp(
+            chrono::Utc::now()
+              .format("%Y-%m-%dT%H:%M:%S%.3fZ")
+              .to_string(),
+          )
           .build()?,
       )
       .bom_format("CycloneDX")
