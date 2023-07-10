@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/cargo-sbom/0.6.0")]
+#![doc(html_root_url = "https://docs.rs/cargo-sbom/0.7.0")]
 
 //! # cargo-sbom
 //!
@@ -44,7 +44,7 @@
 //!       --cargo-package <CARGO_PACKAGE>
 //!           The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace.
 //!       --output-format <OUTPUT_FORMAT>
-//!           The SBOM output format. [default: spdx] [possible values: spdx, cyclone_dx]
+//!           The SBOM output format. [default: spdx_json_2_3] [possible values: spdx_json_2_3, cyclone_dx_json_1_4]
 //!       --project-directory <PROJECT_DIRECTORY>
 //!           The directory to the Cargo project. [default: .]
 //!   -h, --help
@@ -62,11 +62,11 @@
 //!   "creationInfo": {
 //!     "created": "2023-07-04T12:38:15.211Z",
 //!     "creators": [
-//!       "Tool: cargo-sbom-v0.6.0"
+//!       "Tool: cargo-sbom-v0.7.0"
 //!     ]
 //!   },
 //!   "dataLicense": "CC0-1.0",
-//!   "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.6.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+//!   "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.7.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
 //!   "files": [
 //!     {
 //!   <rest of output omitted>

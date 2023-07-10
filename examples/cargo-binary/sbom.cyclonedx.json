@@ -115,7 +115,7 @@
     },
     {
       "author": "",
-      "bom-ref": "CycloneDxRef-Component-clap_lex-0.6.0",
+      "bom-ref": "CycloneDxRef-Component-clap_lex-0.7.0",
       "description": "Minimal, flexible command line parser",
       "licenses": [
         {
@@ -123,9 +123,9 @@
         }
       ],
       "name": "clap_lex",
-      "purl": "pkg:cargo/clap_lex@0.6.0",
+      "purl": "pkg:cargo/clap_lex@0.7.0",
       "type": "library",
-      "version": "0.6.0"
+      "version": "0.7.0"
     },
     {
       "author": "Microsoft",
@@ -538,7 +538,7 @@
         "CycloneDxRef-Component-anstyle-1.0.1",
         "CycloneDxRef-Component-anstream-0.3.2",
         "CycloneDxRef-Component-strsim-0.10.0",
-        "CycloneDxRef-Component-clap_lex-0.6.0"
+        "CycloneDxRef-Component-clap_lex-0.7.0"
       ],
       "ref": "CycloneDxRef-Component-clap_builder-4.3.11"
     },
@@ -649,7 +649,7 @@
     "tools": [
       {
         "name": "cargo-sbom",
-        "version": "0.6.0"
+        "version": "0.7.0"
       }
     ]
   },
