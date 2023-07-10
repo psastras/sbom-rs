@@ -6,16 +6,13 @@ use std::{
 use crate::graph::Graph;
 use anyhow::{anyhow, Ok, Result};
 use petgraph::visit::EdgeRef;
-use serde_cyclonedx::cyclonedx::{
-  ComponentBuilder, CycloneDx, CycloneDxBuilder,
-};
 
 pub mod built_info {
   // The file has been placed there by the build script.
   include!(concat!(env!("OUT_DIR"), "/built.rs"));
 }
 
-struct HashableCycloneDxComponent(serde_cyclonedx::cyclonedx::Component);
+struct HashableCycloneDxComponent(serde_cyclonedx::cyclonedx::v_1_4::Component);
 
 impl std::hash::Hash for HashableCycloneDxComponent {
   fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
@@ -34,7 +31,9 @@ impl std::cmp::PartialEq for HashableCycloneDxComponent {
 
 impl std::cmp::Eq for HashableCycloneDxComponent {}
 
-struct HashableCycloneDxDependency(serde_cyclonedx::cyclonedx::Dependency);
+struct HashableCycloneDxDependency(
+  serde_cyclonedx::cyclonedx::v_1_4::Dependency,
+);
 
 impl std::hash::Hash for HashableCycloneDxDependency {
   fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
@@ -57,7 +56,7 @@ pub fn convert(
   cargo_package: Option<String>,
   project_directory: PathBuf,
   graph: &Graph,
-) -> Result<CycloneDx> {
+) -> Result<serde_cyclonedx::cyclonedx::v_1_4::CycloneDx> {
   let absolute_project_directory = project_directory.canonicalize()?;
   let manifest_folder = absolute_project_directory
     .file_name()
@@ -65,8 +64,10 @@ pub fn convert(
   let name = cargo_package
     .clone()
     .unwrap_or_else(|| manifest_folder.to_string_lossy().to_string());
-  let mut metadata = serde_cyclonedx::cyclonedx::MetadataBuilder::default();
-  let mut root_component_builder = ComponentBuilder::default();
+  let mut metadata =
+    serde_cyclonedx::cyclonedx::v_1_4::MetadataBuilder::default();
+  let mut root_component_builder =
+    serde_cyclonedx::cyclonedx::v_1_4::ComponentBuilder::default();
   let mut root_component_components = vec![];
 
   // We traverse through the dependency graph multiple times in a Cargo workspace (once per package), so we need to keep a unique
@@ -91,7 +92,7 @@ pub fn convert(
       let edges = graph.graph.edges(nx);
       let package = graph.graph[nx];
       let mut cyclonedx_component_builder =
-        serde_cyclonedx::cyclonedx::ComponentBuilder::default();
+        serde_cyclonedx::cyclonedx::v_1_4::ComponentBuilder::default();
       cyclonedx_component_builder
         .type_(if package.targets[0].is_lib() {
           "library"
@@ -112,26 +113,29 @@ pub fn convert(
       let mut external_references = vec![];
       if let Some(documentation) = package.documentation.as_ref() {
         external_references.push(
-          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
-            .type_("documentation")
-            .url(documentation)
-            .build()?,
+          serde_cyclonedx::cyclonedx::v_1_4::ExternalReferenceBuilder::default(
+          )
+          .type_("documentation")
+          .url(documentation)
+          .build()?,
         )
       }
       if let Some(homepage) = package.homepage.as_ref() {
         external_references.push(
-          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
-            .type_("website")
-            .url(homepage)
-            .build()?,
+          serde_cyclonedx::cyclonedx::v_1_4::ExternalReferenceBuilder::default(
+          )
+          .type_("website")
+          .url(homepage)
+          .build()?,
         )
       }
       if let Some(repository) = package.repository.as_ref() {
         external_references.push(
-          serde_cyclonedx::cyclonedx::ExternalReferenceBuilder::default()
-            .type_("vcs")
-            .url(repository)
-            .build()?,
+          serde_cyclonedx::cyclonedx::v_1_4::ExternalReferenceBuilder::default(
+          )
+          .type_("vcs")
+          .url(repository)
+          .build()?,
         )
       }
 
@@ -139,7 +143,7 @@ pub fn convert(
       cyclonedx_component_builder.author(package.authors.join(", "));
 
       let cyclonedx_license =
-        serde_cyclonedx::cyclonedx::LicenseChoiceBuilder::default()
+        serde_cyclonedx::cyclonedx::v_1_4::LicenseChoiceBuilder::default()
           .expression(
             super::spdx::license::normalize_license_string(
               package.license.as_ref().unwrap_or(&"UNKNOWN".to_string()),
@@ -187,40 +191,43 @@ pub fn convert(
     }
   }
 
-  let cyclonedx = CycloneDxBuilder::default()
-    .metadata(
-      metadata
-        .component(
-          root_component_builder
-            .name(name)
-            .type_("application")
-            .components(root_component_components)
-            .build()?,
-        )
-        .tools(vec![serde_cyclonedx::cyclonedx::ToolBuilder::default()
-          .name(built_info::PKG_NAME)
-          .version(built_info::PKG_VERSION)
-          .build()?])
-        .build()?,
-    )
-    .bom_format("CycloneDX")
-    .components(components.iter().map(|p| p.0.clone()).collect::<Vec<_>>())
-    .dependencies(
-      dependencies
-        .iter()
-        .map(|p| {
-          serde_cyclonedx::cyclonedx::DependencyBuilder::default()
-            .ref_(p.0)
-            .depends_on(p.1.iter().cloned().collect::<Vec<String>>())
-            .build()
-            .unwrap()
-        })
-        .collect::<Vec<_>>(),
-    )
-    .serial_number(format!("urn:uuid:{}", uuid::Uuid::new_v4()))
-    .spec_version("1.4")
-    .version(1)
-    .build()?;
+  let cyclonedx =
+    serde_cyclonedx::cyclonedx::v_1_4::CycloneDxBuilder::default()
+      .metadata(
+        metadata
+          .component(
+            root_component_builder
+              .name(name)
+              .type_("application")
+              .components(root_component_components)
+              .build()?,
+          )
+          .tools(vec![
+            serde_cyclonedx::cyclonedx::v_1_4::ToolBuilder::default()
+              .name(built_info::PKG_NAME)
+              .version(built_info::PKG_VERSION)
+              .build()?,
+          ])
+          .build()?,
+      )
+      .bom_format("CycloneDX")
+      .components(components.iter().map(|p| p.0.clone()).collect::<Vec<_>>())
+      .dependencies(
+        dependencies
+          .iter()
+          .map(|p| {
+            serde_cyclonedx::cyclonedx::v_1_4::DependencyBuilder::default()
+              .ref_(p.0)
+              .depends_on(p.1.iter().cloned().collect::<Vec<String>>())
+              .build()
+              .unwrap()
+          })
+          .collect::<Vec<_>>(),
+      )
+      .serial_number(format!("urn:uuid:{}", uuid::Uuid::new_v4()))
+      .spec_version("1.4")
+      .version(1)
+      .build()?;
 
   Ok(cyclonedx)
 }

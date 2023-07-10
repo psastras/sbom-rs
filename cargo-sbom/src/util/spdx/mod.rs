@@ -4,14 +4,13 @@ use std::{collections::HashSet, path::PathBuf};
 use crate::graph::Graph;
 use anyhow::{anyhow, Ok, Result};
 use petgraph::visit::EdgeRef;
-use serde_spdx::spdx::Spdx;
 
 pub mod built_info {
   // The file has been placed there by the build script.
   include!(concat!(env!("OUT_DIR"), "/built.rs"));
 }
 
-struct HashableSpdxItemPackages(serde_spdx::spdx::SpdxItemPackages);
+struct HashableSpdxItemPackages(serde_spdx::spdx::v_2_3::SpdxItemPackages);
 
 impl std::hash::Hash for HashableSpdxItemPackages {
   fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
@@ -27,7 +26,9 @@ impl std::cmp::PartialEq for HashableSpdxItemPackages {
 
 impl std::cmp::Eq for HashableSpdxItemPackages {}
 
-struct HashableSpdxItemRelationships(serde_spdx::spdx::SpdxItemRelationships);
+struct HashableSpdxItemRelationships(
+  serde_spdx::spdx::v_2_3::SpdxItemRelationships,
+);
 
 impl std::hash::Hash for HashableSpdxItemRelationships {
   fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
@@ -51,19 +52,20 @@ pub fn convert(
   cargo_package: Option<String>,
   project_directory: PathBuf,
   graph: &Graph,
-) -> Result<Spdx> {
-  let creation_info = serde_spdx::spdx::SpdxCreationInfoBuilder::default()
-    .created(
-      chrono::Utc::now()
-        .format("%Y-%m-%dT%H:%M:%S%.3fZ")
-        .to_string(),
-    )
-    .creators(vec![format!(
-      "Tool: {}-v{}",
-      built_info::PKG_NAME,
-      built_info::PKG_VERSION
-    )])
-    .build()?;
+) -> Result<serde_spdx::spdx::v_2_3::Spdx> {
+  let creation_info =
+    serde_spdx::spdx::v_2_3::SpdxCreationInfoBuilder::default()
+      .created(
+        chrono::Utc::now()
+          .format("%Y-%m-%dT%H:%M:%S%.3fZ")
+          .to_string(),
+      )
+      .creators(vec![format!(
+        "Tool: {}-v{}",
+        built_info::PKG_NAME,
+        built_info::PKG_VERSION
+      )])
+      .build()?;
 
   // We traverse through the dependency graph multiple times in a Cargo workspace (once per package), so we need to keep a unique
   // set of dependencies and their relationships
@@ -89,7 +91,7 @@ pub fn convert(
       let edges = graph.graph.edges(nx);
       let package = graph.graph[nx];
       let mut spdx_package_builder =
-        serde_spdx::spdx::SpdxItemPackagesBuilder::default();
+        serde_spdx::spdx::v_2_3::SpdxItemPackagesBuilder::default();
 
       spdx_package_builder
         .spdxid(format!(
@@ -133,7 +135,7 @@ pub fn convert(
           .with_version(package.version.to_string())
           .to_string();
           let external_refs =
-            serde_spdx::spdx::SpdxItemPackagesItemExternalRefsBuilder::default(
+            serde_spdx::spdx::v_2_3::SpdxItemPackagesItemExternalRefsBuilder::default(
             )
             .reference_category("PACKAGE-MANAGER")
             .reference_type("purl")
@@ -149,7 +151,7 @@ pub fn convert(
         let source = &graph.graph[e.source()];
         let target = &graph.graph[e.target()];
         relationships.insert(HashableSpdxItemRelationships(
-          serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
+          serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
             .spdx_element_id(format!(
               "SPDXRef-Package-{}-{}",
               source.name, source.version
@@ -171,7 +173,7 @@ pub fn convert(
       .filter(|target| target.is_bin() || target.is_lib())
       .for_each(|target| {
         files.push(
-          serde_spdx::spdx::SpdxItemFilesBuilder::default()
+          serde_spdx::spdx::v_2_3::SpdxItemFilesBuilder::default()
             .spdxid(format!("SPDXRef-File-{}", target.name))
             .checksums(vec![])
             .file_name(&target.name)
@@ -180,7 +182,7 @@ pub fn convert(
             .unwrap(),
         );
         relationships.insert(HashableSpdxItemRelationships(
-          serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
+          serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
             .spdx_element_id(format!("SPDXRef-File-{}", target.name))
             .related_spdx_element(format!(
               "SPDXRef-Package-{}-{}",
@@ -201,7 +203,7 @@ pub fn convert(
     .unwrap_or_else(|| manifest_folder.to_string_lossy().to_string());
   let uuid = uuid::Uuid::new_v4();
   Ok(
-    serde_spdx::spdx::SpdxBuilder::default()
+    serde_spdx::spdx::v_2_3::SpdxBuilder::default()
       .spdxid("SPDXRef-DOCUMENT")
       .creation_info(creation_info)
       .data_license("CC0-1.0")
