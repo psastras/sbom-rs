@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/serde-spdx/0.7.0")]
+#![doc(html_root_url = "https://docs.rs/serde-spdx/0.7.1")]
 
 //! # serde-spdx
 //!
