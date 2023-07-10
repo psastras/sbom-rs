@@ -3,7 +3,7 @@
   "creationInfo": {
     "created": "2023-07-10T00:07:32.851Z",
     "creators": [
-      "Tool: cargo-sbom-v0.5.0"
+      "Tool: cargo-sbom-v0.6.0"
     ]
   },
   "dataLicense": "CC0-1.0",
@@ -272,13 +272,13 @@
       "name": "bitflags"
     },
     {
-      "SPDXID": "SPDXRef-Package-clap_lex-0.5.0",
+      "SPDXID": "SPDXRef-Package-clap_lex-0.6.0",
       "description": "Minimal, flexible command line parser",
       "downloadLocation": "registry+https://github.com/rust-lang/crates.io-index",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
-          "referenceLocator": "pkg:cargo/clap_lex@0.5.0",
+          "referenceLocator": "pkg:cargo/clap_lex@0.6.0",
           "referenceType": "purl"
         }
       ],
@@ -732,7 +732,7 @@
       "spdxElementId": "SPDXRef-Package-windows-targets-0.48.1"
     },
     {
-      "relatedSpdxElement": "SPDXRef-Package-clap_lex-0.5.0",
+      "relatedSpdxElement": "SPDXRef-Package-clap_lex-0.6.0",
       "relationshipType": "DEPENDS_ON",
       "spdxElementId": "SPDXRef-Package-clap_builder-4.3.11"
     },

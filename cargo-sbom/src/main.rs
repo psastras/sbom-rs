@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/cargo-sbom/0.5.0")]
+#![doc(html_root_url = "https://docs.rs/cargo-sbom/0.6.0")]
 
 //! # cargo-sbom
 //!
@@ -33,6 +33,26 @@
 //!
 //! For most cases, simply `cd` into a cargo workspace and run `cargo sbom`.
 //!
+//! ### `--help`
+//!
+//! ```
+//! Create software bill of materials (SBOM) for Rust
+//!
+//! Usage: cargo sbom [OPTIONS]
+//!
+//! Options:
+//!       --cargo-package <CARGO_PACKAGE>
+//!           The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace.
+//!       --output-format <OUTPUT_FORMAT>
+//!           The SBOM output format. [default: spdx] [possible values: spdx, cyclone_dx]
+//!       --project-directory <PROJECT_DIRECTORY>
+//!           The directory to the Cargo project. [default: .]
+//!   -h, --help
+//!           Print help
+//!   -V, --version
+//!           Print version
+//! ```
+//!
 //! ## Example
 //!
 //! ```shell
@@ -42,42 +62,77 @@
 //!   "creationInfo": {
 //!     "created": "2023-07-04T12:38:15.211Z",
 //!     "creators": [
-//!       "Tool: cargo-sbom-v0.5.0"
+//!       "Tool: cargo-sbom-v0.6.0"
 //!     ]
 //!   },
 //!   "dataLicense": "CC0-1.0",
-//!   "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.5.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
+//!   "documentNamespace": "https://docs.rs/cargo_sbom/spdxdocs/cargo-sbom-0.6.0-9cae390a-4b46-457c-95b9-e59a5e62b57d",
 //!   "files": [
 //!     {
 //!   <rest of output omitted>
 //! ```
 //!
+//! More examples can be found by browsing the [examples section](https://github.com/psastras/sbom-rs/tree/main/examples).
+//!
 //! ## Supported SBOM Features
 //!
 //! ### SPDX
 //!
-//! | SPDX Field                | Source                                                                                             |
-//! |---------------------------|----------------------------------------------------------------------------------------------------|
-//! | packages.SPDXID           |                                            Written as SPDXRef-Package-crate name-crate version     |
-//! | packages.description      |                                                         Read from Cargo.toml's "description" field |
-//! | packages.downloadLocation | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index")       |
-//! | packages.externalRefs     | If packages.downloadLocation is crates.io, written as a package url formatted string               |
-//! | packages.homepage         |                                                            Read from Cargo.toml's "homepage" field |
-//! | packages.licenseConcluded |                                                          Parsed from Cargo.toml's "license" field  |
-//! | packages.licenseDeclared  |                                                             Read from Cargo.toml's "license" field |
-//! | packages.name             |                                                                Read from Cargo.toml's "name" field |
+//! | SPDX Field                       | Source                                                                                       |
+//! |----------------------------------|----------------------------------------------------------------------------------------------|
+//! | SPDXID                           | Set to "SPDXRef-Document"                                                                    |
+//! | creationInfo.created             | Set as the current time                                                                      |
+//! | creationInfo.creators            | Set to "Tool: cargo-sbom-v(tool version)                                                     |
+//! | dataLicense                      | Set to "CC0-1.0"                                                                             |
+//! | documentNamespace                | set to "https://spdx.org/spdxdocs/(crate-name)-(uuidv4)"                                     |
+//! | files                            | parsed from Cargo.toml target names                                                          |
+//! | name                             | Set to the project folder name                                                               |
+//! | packages                         | Set to dependencies parsed from cargo-metadata                                               |
+//! | packages.SPDXID                  | Written as SPDXRef-Package-(crate name)-(crate version)                                      |
+//! | packages.description             | Read from Cargo.toml's "description" field                                                   |
+//! | packages.downloadLocation        | Read from `cargo metadata` (usually "registry+https://github.com/rust-lang/crates.io-index") |
+//! | packages.externalRefs            | If packages.downloadLocation is crates.io, written as a package url formatted string         |
+//! | packages.homepage                | Read from Cargo.toml's "homepage" field                                                      |
+//! | packages.licenseConcluded        | Parsed into a SPDX compliant license identifier from Cargo.toml's "license" field            |
+//! | packages.licenseDeclared         | Read from Cargo.toml's "license" field                                                       |
+//! | packages.name                    | Read from Cargo.toml's "name" field                                                          |
+//! | relationships                    | Set to dependency relationships parsed from cargo-metadata                                   |
+//! | relationships.relationshipType   | Set to dependency relationship parsed from cargo-metadata                                    |
+//! | relationships.spdxElementId      | Set to dependency relationship source parsed from cargo-metadata                             |
+//! | relationships.relatedSpdxElement | Set to dependency relationship target parsed from cargo-metadata                             |
+//!
 //!
 //! ### CycloneDx
 //!
-//! None
-//!
-//!
+//! | CycloneDx Field               | Source                                                                            |
+//! |-------------------------------|-----------------------------------------------------------------------------------|
+//! | bomFormat                     | Set to "CycloneDX"                                                                |
+//! | serialNumber                  | Set to "urn:uuid:(uuidv4)"                                                        |
+//! | specVersion                   | Set to 1.4                                                                        |
+//! | version                       | Set to 1                                                                          |
+//! | metadata                      |                                                                                   |
+//! | metadata.component            | parsed from the root workspace                                                    |
+//! | metadata.component.name       | Set to the root workspace folder name                                             |
+//! | metadata.component.type       | Set to "application"                                                              |
+//! | metadata.component.components | Set to each of the cargo workspace package components                             |
+//! | components                    | Set to the componennts parse from cargo-metadata                                  |
+//! | components.author             | Read from Cargo.toml's "authors" field                                            |
+//! | components.bom-ref            | Set to "CycloneDxRef-Component-(crate-name)-(crate-version)"                      |
+//! | components.description        | Read from Cargo.toml's "description" field                                        |
+//! | copmonents.licenses           | Parsed into a SPDX compliant license identifier from Cargo.toml's "license" field |
+//! | components.name               | Read from Cargo.toml's "name" field                                               |
+//! | components.purl               | If the download location is crates.io, written as a package url formatted string  |
+//! | components.type               | Read from cargo-metadata crate type                                               |
+//! | components.version            | Read from Cargo.toml's "version" field                                            |
+//! | dependencies                  | Set to dependency relationships parsed from cargo-metadata                        |
+//! | dependencies.ref              | Set to source dependency reference id string                                      |
+//! | dependencies.dependsOnn       | Set to target dependencies reference id strings                                   |
+
 use anyhow::{anyhow, Ok, Result};
 use cargo_metadata::{CargoOpt, MetadataCommand};
 use clap::{Parser, ValueEnum};
-use std::{collections::HashSet, env, fmt::Debug, path::PathBuf};
+use std::{env, fmt::Debug, path::PathBuf};
 mod graph;
-use petgraph::visit::EdgeRef;
 
 mod util;
 
@@ -118,42 +173,6 @@ struct Opt {
   project_directory: PathBuf,
 }
 
-struct HashableSpdxItemPackages(serde_spdx::spdx::SpdxItemPackages);
-
-impl std::hash::Hash for HashableSpdxItemPackages {
-  fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-    self.0.spdxid.hash(state)
-  }
-}
-
-impl std::cmp::PartialEq for HashableSpdxItemPackages {
-  fn eq(&self, other: &Self) -> bool {
-    self.0.spdxid == other.0.spdxid
-  }
-}
-
-impl std::cmp::Eq for HashableSpdxItemPackages {}
-
-struct HashableSpdxItemRelationships(serde_spdx::spdx::SpdxItemRelationships);
-
-impl std::hash::Hash for HashableSpdxItemRelationships {
-  fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-    self.0.spdx_element_id.hash(state);
-    self.0.related_spdx_element.hash(state);
-    self.0.relationship_type.hash(state);
-  }
-}
-
-impl std::cmp::PartialEq for HashableSpdxItemRelationships {
-  fn eq(&self, other: &Self) -> bool {
-    self.0.spdx_element_id == other.0.spdx_element_id
-      && self.0.related_spdx_element == other.0.related_spdx_element
-      && self.0.relationship_type == other.0.relationship_type
-  }
-}
-
-impl std::cmp::Eq for HashableSpdxItemRelationships {}
-
 fn main() {
   if let Err(err) = try_main() {
     eprintln!("ERROR: {}", err);
@@ -174,10 +193,8 @@ fn try_main() -> Result<()> {
       Some(x)
     }
   });
+
   let opt = Opt::parse_from(args);
-  if matches!(opt.output_format, OutputFormat::CycloneDx) {
-    return Err(anyhow!("Output format not yet supported."));
-  }
 
   if !opt.project_directory.is_dir() {
     return Err(anyhow!(
@@ -202,173 +219,19 @@ fn try_main() -> Result<()> {
     .exec()?;
 
   let graph = graph::build(&metadata)?;
-  let creation_info = serde_spdx::spdx::SpdxCreationInfoBuilder::default()
-    .created(
-      chrono::Utc::now()
-        .format("%Y-%m-%dT%H:%M:%S%.3fZ")
-        .to_string(),
-    )
-    .creators(vec![format!(
-      "Tool: {}-v{}",
-      built_info::PKG_NAME,
-      built_info::PKG_VERSION
-    )])
-    .build()?;
 
-  // We traverse through the dependency graph multiple times in a Cargo workspace (once per package), so we need to keep a unique
-  // set of dependencies and their relationships
-  let mut packages = HashSet::new();
-  let mut relationships = HashSet::new();
-
-  let mut files = vec![];
-
-  for root_package_id in graph.root_packages.iter() {
-    let root_node_index = graph
-      .nodes
-      .get(root_package_id)
-      .ok_or(anyhow!("No root node. Shouldn't reach here."))?;
-    let root = graph.graph[*root_node_index];
-    if let Some(r) = opt.cargo_package.as_ref() {
-      if r != &root.name {
-        continue;
-      }
-    }
-
-    let mut dfs = petgraph::visit::Dfs::new(&graph.graph, *root_node_index);
-    while let Some(nx) = dfs.next(&graph.graph) {
-      let edges = graph.graph.edges(nx);
-      let package = graph.graph[nx];
-      let mut spdx_package_builder =
-        serde_spdx::spdx::SpdxItemPackagesBuilder::default();
-
-      spdx_package_builder
-        .spdxid(format!(
-          "SPDXRef-Package-{}-{}",
-          package.name, package.version
-        ))
-        .download_location(
-          package
-            .source
-            .as_ref()
-            .map(|source| source.to_string())
-            .unwrap_or("NONE".to_string()),
-        )
-        .license_concluded(
-          util::spdx::license::normalize_license_string(
-            package.license.as_ref().unwrap_or(&"UNKNOWN".to_string()),
-          )
-          .unwrap_or("NOASSERTION".to_string()),
-        )
-        .name(&package.name);
-
-      if let Some(license_declared) = package.license.as_ref() {
-        spdx_package_builder.license_declared(license_declared);
-      }
-
-      if let Some(description) = package.description.as_ref() {
-        spdx_package_builder.description(description);
-      }
-
-      if let Some(homepage) = package.homepage.as_ref() {
-        spdx_package_builder.homepage(homepage);
-      }
-
-      if let Some(source) = package.source.as_ref() {
-        if source.is_crates_io() {
-          let purl = packageurl::PackageUrl::new::<&str, &str>(
-            "cargo",
-            package.name.as_ref(),
-          )
-          .expect("only fails if type is invalid")
-          .with_version(package.version.to_string())
-          .to_string();
-          let external_refs =
-            serde_spdx::spdx::SpdxItemPackagesItemExternalRefsBuilder::default(
-            )
-            .reference_category("PACKAGE-MANAGER")
-            .reference_type("purl")
-            .reference_locator(purl)
-            .build()?;
-          spdx_package_builder.external_refs(vec![external_refs]);
-        }
-      }
-
-      packages.insert(HashableSpdxItemPackages(spdx_package_builder.build()?));
-
-      edges.for_each(|e| {
-        let source = &graph.graph[e.source()];
-        let target = &graph.graph[e.target()];
-        relationships.insert(HashableSpdxItemRelationships(
-          serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
-            .spdx_element_id(format!(
-              "SPDXRef-Package-{}-{}",
-              source.name, source.version
-            ))
-            .related_spdx_element(format!(
-              "SPDXRef-Package-{}-{}",
-              target.name, target.version
-            ))
-            .relationship_type("DEPENDS_ON")
-            .build()
-            .unwrap(),
-        ));
-      });
-    }
-
-    root
-      .targets
-      .iter()
-      .filter(|target| target.is_bin() || target.is_lib())
-      .for_each(|target| {
-        files.push(
-          serde_spdx::spdx::SpdxItemFilesBuilder::default()
-            .spdxid(format!("SPDXRef-File-{}", target.name))
-            .checksums(vec![])
-            .file_name(&target.name)
-            .file_types(vec!["BINARY".to_string()])
-            .build()
-            .unwrap(),
-        );
-        relationships.insert(HashableSpdxItemRelationships(
-          serde_spdx::spdx::SpdxItemRelationshipsBuilder::default()
-            .spdx_element_id(format!("SPDXRef-File-{}", target.name))
-            .related_spdx_element(format!(
-              "SPDXRef-Package-{}-{}",
-              root.name, root.version
-            ))
-            .relationship_type("GENERATED_FROM")
-            .build()
-            .unwrap(),
-        ));
-      });
+  if matches!(opt.output_format, OutputFormat::CycloneDx) {
+    let cyclonedx = util::cyclonedx::convert(
+      opt.cargo_package,
+      opt.project_directory,
+      &graph,
+    )?;
+    println!("{}", serde_json::to_string_pretty(&cyclonedx)?);
+  } else if matches!(opt.output_format, OutputFormat::Spdx) {
+    let spdx =
+      util::spdx::convert(opt.cargo_package, opt.project_directory, &graph)?;
+    println!("{}", serde_json::to_string_pretty(&spdx)?);
   }
-
-  let absolute_project_directory = opt.project_directory.canonicalize()?;
-  let manifest_folder = absolute_project_directory
-    .file_name()
-    .ok_or(anyhow!("Failed to determine parent folder of Cargo.toml. Unable to assign a SPDX document name."))?;
-  let name = opt
-    .cargo_package
-    .unwrap_or_else(|| manifest_folder.to_string_lossy().to_string());
-  let uuid = uuid::Uuid::new_v4();
-  let spdx = serde_spdx::spdx::SpdxBuilder::default()
-    .spdxid("SPDXRef-DOCUMENT")
-    .creation_info(creation_info)
-    .data_license("CC0-1.0")
-    .document_namespace(format!("https://spdx.org/spdxdocs/{}-{}", name, uuid))
-    .files(files)
-    .name(name)
-    .spdx_version("SPDX-2.3")
-    .packages(packages.iter().map(|p| p.0.clone()).collect::<Vec<_>>())
-    .relationships(
-      relationships
-        .iter()
-        .map(|p| p.0.clone())
-        .collect::<Vec<_>>(),
-    )
-    .build()?;
-
-  println!("{}", serde_json::to_string_pretty(&spdx)?);
 
   Ok(())
 }
