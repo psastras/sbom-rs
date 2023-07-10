@@ -7,7 +7,9 @@ A group of Rust projects for interacting with and producing software bill of mat
 
 ## Example
 
-Create a SPDX SBOM for a Cargo project.
+## Create a SPDX SBOM for a Cargo project
+
+In a shell:
 
 ```shell
 $ cargo sbom
@@ -24,6 +26,21 @@ $ cargo sbom
   "files": [
     {
   <rest of output omitted>
+```
+
+## Create a CycloneDx SBOM in Github Actions
+
+In a Github Actions workflow:
+
+```yaml
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: psastras/sbom-rs/actions/install-cargo-sbom@cargo-sbom-latest
+    - name: Run cargo-sbom
+      run: cargo-sbom --output-format=cyclone_dx_json_1_4
 ```
 
 ## Install
@@ -67,6 +84,7 @@ See each subproject for more detailed information:
 - `serde-spdx`: Typesafe SPDX structures for serializing and deserializing
   SPDX information using [serde](https://serde.rs/). See the
   [Rust documentation](https://docs.rs/serde_spdx/).
+- `cargo-sbom-actions`: Github actions to use `cargo-sbom` and related tools in CI workflows See the [README.md](https://github.com/psastras/sbom-rs/tree/main/actions/README.md) for documentaiton.
 
 [Also check the examples.](https://github.com/psastras/sbom-rs/tree/main/examples)
 
