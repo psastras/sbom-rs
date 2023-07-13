@@ -738,7 +738,7 @@ dependencies = [
  "schemafy_lib",
  "serde",
  "serde_json",
- "syn 1.0.109",
+ "syn 2.0.23",
  "thiserror",
 ]
 
@@ -754,7 +754,7 @@ dependencies = [
  "schemafy_lib",
  "serde",
  "serde_json",
- "syn 1.0.109",
+ "syn 2.0.23",
  "thiserror",
 ]
 
