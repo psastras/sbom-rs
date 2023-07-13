@@ -3,7 +3,7 @@
   "creationInfo": {
     "created": "2023-07-10T12:38:05.978Z",
     "creators": [
-      "Tool: cargo-sbom-v0.8.3"
+      "Tool: cargo-sbom-v0.8.4"
     ]
   },
   "dataLicense": "CC0-1.0",
