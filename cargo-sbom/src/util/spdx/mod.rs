@@ -98,6 +98,7 @@ pub fn convert(
           "SPDXRef-Package-{}-{}",
           package.name, package.version
         ))
+        .version_info(package.version.to_string())
         .download_location(
           package
             .source
