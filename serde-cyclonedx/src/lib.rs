@@ -26,8 +26,12 @@
 //! ```rust
 //! use serde_cyclonedx::cyclonedx::v_1_4::CycloneDx;
 //!
-//! let data = fs::read_to_string("sbom.cyclonedx.json");
-//! let cyclonedx: CycloneDx = serde_json::from_str(&data).unwrap();
+//! let cyclonedx: CycloneDx = serde_json::from_str(r#"{
+//!   "bomFormat": "CycloneDX",
+//!   "serialNumber": "urn:uuid:e1afae7d-7cca-4894-9dac-3f400bc10c4c",
+//!   "specVersion": "1.4",
+//!   "version": 1
+//! }"#).unwrap();
 //! ```
 //!
 //! Because many of the [cyclonedx::v_1_4::CycloneDx] structures contain a lot of optional fields,
