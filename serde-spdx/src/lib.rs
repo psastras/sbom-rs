@@ -26,8 +26,19 @@
 //! ```rust
 //! use serde_spdx::spdx::v_2_3::Spdx;
 //!
-//! let data = fs::read_to_string("sbom.spdx.json");
-//! let spdx: Spdx = serde_json::from_str(&data).unwrap();
+//! let spdx: Spdx = serde_json::from_str(r#"{
+//!   "SPDXID": "SPDXRef-DOCUMENT",
+//!   "creationInfo": {
+//!     "created": "2023-07-11T00:25:33.110Z",
+//!     "creators": [
+//!       "Tool: cargo-sbom-v0.8.4"
+//!     ]
+//!   },
+//!   "dataLicense": "CC0-1.0",
+//!   "documentNamespace": "https://spdx.org/spdxdocs/cargo-binary-c19e7c0e-2680-4120-aaf2-7cb4d8448674",
+//!   "name": "cargo-binary",
+//!   "spdxVersion": "SPDX-2.3"
+//! }"#).unwrap();
 //! ```
 //!
 //! Because many of the [spdx::v_2_3::Spdx] structures contain a lot of optional fields,

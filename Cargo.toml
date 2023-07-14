@@ -3,6 +3,7 @@ members = [
   "cargo-sbom",
   "serde-spdx",
   "serde-cyclonedx",
+  "tests",
 ]
 
 [profile.release]
