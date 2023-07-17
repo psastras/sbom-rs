@@ -29,7 +29,7 @@ thiserror = "1.0.43"
 [build-dependencies]
 anyhow = "1.0.70"
 prettyplease = "0.2.10"
-proc-macro2 = "1.0.64"
+proc-macro2 = "1.0.66"
 quote = "1.0.23"
 schemafy_lib = "0.6.0"
 serde_json = "1.0.103"
