@@ -11,7 +11,7 @@ path = "examples_test.rs"
 [dev-dependencies]
 anyhow = "1.0.72"
 assert_cmd = "2.0.12"
-escargot = "0.5.7"
+escargot = "0.5.8"
 predicates = "3.0.3"
 pretty_assertions = "1.4.0"
 serde-cyclonedx = { path = "../serde-cyclonedx", version = "0.8.3" }
