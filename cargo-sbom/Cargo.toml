@@ -41,7 +41,7 @@ features = [
 ]
 
 [dev-dependencies]
-duct = "0.13.6"
+duct = "0.13.7"
 duct_sh = "0.13.6"
 
 [package.metadata.binstall]
