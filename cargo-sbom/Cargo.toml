@@ -13,7 +13,7 @@ documentation = "https://docs.rs/cargo_sbom"
 repository = "https://github.com/psastras/sbom-rs"
 
 [dependencies]
-anyhow = "1.0.77"
+anyhow = "1.0.78"
 cargo_metadata = "0.18.1"
 chrono = "0.4.31"
 clap = { version = "4.4.12", features = ["derive", "string"] }
