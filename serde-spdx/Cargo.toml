@@ -28,7 +28,7 @@ thiserror = "1.0.53"
 
 [build-dependencies]
 anyhow = "1.0.79"
-prettyplease = "0.2.15"
+prettyplease = "0.2.16"
 proc-macro2 = "1.0.71"
 quote = "1.0.34"
 schemafy_lib = "0.6.0"
