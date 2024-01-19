@@ -35,7 +35,7 @@ path = "src/main.rs"
 built = "0.7"
 
 [dependencies.uuid]
-version = "1.6.1"
+version = "1.7.0"
 features = [
     "v4",                # Lets you generate random UUIDs
 ]
