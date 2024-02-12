@@ -15,7 +15,7 @@ repository = "https://github.com/psastras/sbom-rs"
 [dependencies]
 anyhow = "1.0.79"
 cargo_metadata = "0.18.1"
-chrono = "0.4.33"
+chrono = "0.4.34"
 clap = { version = "4.5.0", features = ["derive", "string"] }
 clap-cargo = "0.14.0"
 packageurl = "0.3.0"
