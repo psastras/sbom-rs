@@ -20,14 +20,14 @@ github = { repository = "psastras/cargo-sbom" }
 default = []
 
 [dependencies]
-anyhow = "1.0.79"
+anyhow = "1.0.80"
 derive_builder = "0.20.0"
 serde = "1.0.196"
 serde_json = "1.0.113"
 thiserror = "1.0.57"
 
 [build-dependencies]
-anyhow = "1.0.79"
+anyhow = "1.0.80"
 prettyplease = "0.2.16"
 proc-macro2 = "1.0.78"
 quote = "1.0.34"
