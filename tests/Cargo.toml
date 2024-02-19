@@ -9,7 +9,7 @@ name = "test_examples"
 path = "examples_test.rs"
 
 [dev-dependencies]
-anyhow = "1.0.79"
+anyhow = "1.0.80"
 assert_cmd = "2.0.13"
 escargot = "0.5.9"
 predicates = "3.1.0"
