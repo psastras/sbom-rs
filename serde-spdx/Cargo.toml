@@ -22,7 +22,7 @@ default = []
 [dependencies]
 anyhow = "1.0.80"
 derive_builder = "0.20.0"
-serde = "1.0.196"
+serde = "1.0.197"
 serde_json = "1.0.113"
 thiserror = "1.0.57"
 
