@@ -31,6 +31,7 @@ impl std::cmp::PartialEq for HashableCycloneDxComponent {
 
 impl std::cmp::Eq for HashableCycloneDxComponent {}
 
+#[allow(dead_code)]
 struct HashableCycloneDxDependency(
   serde_cyclonedx::cyclonedx::v_1_4::Dependency,
 );
