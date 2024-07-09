@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/serde-spdx/0.9.0")]
+#![doc(html_root_url = "https://docs.rs/serde-spdx/0.9.1")]
 
 //! # serde-spdx
 //!
@@ -31,7 +31,7 @@
 //!   "creationInfo": {
 //!     "created": "2023-07-11T00:25:33.110Z",
 //!     "creators": [
-//!       "Tool: cargo-sbom-v0.9.0"
+//!       "Tool: cargo-sbom-v0.9.1"
 //!     ]
 //!   },
 //!   "dataLicense": "CC0-1.0",

@@ -1,8 +1,8 @@
 [package]
 name = "serde-cyclonedx"
-version = "0.9.0"
+version = "0.9.1"
 authors = ["Paul Sastrasinh <psastras@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "Serde serialization for CycloneDx files"
 license = "MIT"
 readme = "README.md"
