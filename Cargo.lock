@@ -160,7 +160,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-sbom"
-version = "0.8.4"
+version = "0.9.0"
 dependencies = [
  "anyhow",
  "built",
@@ -279,7 +279,7 @@ checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
 
 [[package]]
 name = "core-foundation-sys"
-version = "0.8.4"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
@@ -738,7 +738,7 @@ dependencies = [
 
 [[package]]
 name = "serde-cyclonedx"
-version = "0.8.4"
+version = "0.9.0"
 dependencies = [
  "anyhow",
  "derive_builder",
@@ -754,7 +754,7 @@ dependencies = [
 
 [[package]]
 name = "serde-spdx"
-version = "0.8.4"
+version = "0.9.0"
 dependencies = [
  "anyhow",
  "derive_builder",
