@@ -24,7 +24,7 @@ anyhow = "1.0.86"
 derive_builder = "0.20.0"
 serde = "1.0.204"
 serde_json = "1.0.120"
-thiserror = "1.0.62"
+thiserror = "1.0.63"
 
 [build-dependencies]
 anyhow = "1.0.86"
