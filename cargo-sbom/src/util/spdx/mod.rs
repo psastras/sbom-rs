@@ -3,6 +3,7 @@ use std::{collections::HashSet, path::Path};
 
 use crate::graph::Graph;
 use anyhow::{anyhow, Ok, Result};
+use cargo_metadata::Package;
 use petgraph::visit::EdgeRef;
 
 pub mod built_info {
@@ -47,6 +48,14 @@ impl std::cmp::PartialEq for HashableSpdxItemRelationships {
 }
 
 impl std::cmp::Eq for HashableSpdxItemRelationships {}
+
+/// Generate SPDXRef-Package-... and replace characters that are common but not permitted
+fn generate_project_id(package: &Package) -> String {
+  // underscores become two dashes to avoid collisions with similarly named packages
+  format!("SPDXRef-Package-{}-{}", package.name, package.version)
+    .replace("_", "--")
+    .replace("+", "-plus-")
+}
 
 pub fn convert(
   cargo_package: Option<String>,
@@ -94,10 +103,7 @@ pub fn convert(
         .and_then(|license| license::normalize_license_string(license).ok());
 
       spdx_package_builder
-        .spdxid(format!(
-          "SPDXRef-Package-{}-{}",
-          package.name, package.version
-        ))
+        .spdxid(generate_project_id(package))
         .version_info(package.version.to_string())
         .download_location(
           package
@@ -150,14 +156,8 @@ pub fn convert(
         let target = &graph.graph[e.target()];
         relationships.insert(HashableSpdxItemRelationships(
           serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
-            .spdx_element_id(format!(
-              "SPDXRef-Package-{}-{}",
-              source.name, source.version
-            ))
-            .related_spdx_element(format!(
-              "SPDXRef-Package-{}-{}",
-              target.name, target.version
-            ))
+            .spdx_element_id(generate_project_id(source))
+            .related_spdx_element(generate_project_id(target))
             .relationship_type("DEPENDS_ON")
             .build()
             .unwrap(),
@@ -182,10 +182,7 @@ pub fn convert(
         relationships.insert(HashableSpdxItemRelationships(
           serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
             .spdx_element_id(format!("SPDXRef-File-{}", target.name))
-            .related_spdx_element(format!(
-              "SPDXRef-Package-{}-{}",
-              root.name, root.version
-            ))
+            .related_spdx_element(generate_project_id(root))
             .relationship_type("GENERATED_FROM")
             .build()
             .unwrap(),
