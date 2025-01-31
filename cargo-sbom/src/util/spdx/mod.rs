@@ -57,7 +57,7 @@ pub fn convert(
     serde_spdx::spdx::v_2_3::SpdxCreationInfoBuilder::default()
       .created(
         chrono::Utc::now()
-          .format("%Y-%m-%dT%H:%M:%S%.3fZ")
+          .format("%Y-%m-%dT%H:%M:%SZ")
           .to_string(),
       )
       .creators(vec![format!(
