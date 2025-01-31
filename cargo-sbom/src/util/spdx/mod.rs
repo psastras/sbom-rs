@@ -225,6 +225,15 @@ pub fn convert(
             .build()
             .unwrap(),
         ));
+
+        relationships.insert(HashableSpdxItemRelationships(
+          serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
+            .spdx_element_id("SPDXRef-DOCUMENT")
+            .related_spdx_element(&spdx_id)
+            .relationship_type("DESCRIBES")
+            .build()
+            .unwrap(),
+        ));
       });
   }
 
