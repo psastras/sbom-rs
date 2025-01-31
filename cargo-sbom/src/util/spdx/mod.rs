@@ -1,5 +1,5 @@
 pub mod license;
-use std::{collections::HashSet, path::PathBuf};
+use std::{collections::HashSet, path::Path};
 
 use crate::graph::Graph;
 use anyhow::{anyhow, Ok, Result};
@@ -50,7 +50,7 @@ impl std::cmp::Eq for HashableSpdxItemRelationships {}
 
 pub fn convert(
   cargo_package: Option<String>,
-  project_directory: PathBuf,
+  project_directory: &Path,
   graph: &Graph,
 ) -> Result<serde_spdx::spdx::v_2_3::Spdx> {
   let creation_info =

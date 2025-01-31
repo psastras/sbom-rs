@@ -252,7 +252,7 @@ fn try_main() -> Result<()> {
   }
 
   let metadata = MetadataCommand::new()
-    .manifest_path(cargo_manifest_path)
+    .manifest_path(&cargo_manifest_path)
     .features(CargoOpt::AllFeatures)
     .exec()?;
 
@@ -271,7 +271,7 @@ fn try_main() -> Result<()> {
     )?;
   } else if matches!(opt.output_format, OutputFormat::SpdxJson_2_3) {
     let spdx =
-      util::spdx::convert(opt.cargo_package, opt.project_directory, &graph)?;
+      util::spdx::convert(opt.cargo_package, &opt.project_directory, &graph)?;
     writeln!(
       std::io::stdout(),
       "{}",
