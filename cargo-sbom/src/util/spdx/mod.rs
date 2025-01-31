@@ -55,11 +55,7 @@ pub fn convert(
 ) -> Result<serde_spdx::spdx::v_2_3::Spdx> {
   let creation_info =
     serde_spdx::spdx::v_2_3::SpdxCreationInfoBuilder::default()
-      .created(
-        chrono::Utc::now()
-          .format("%Y-%m-%dT%H:%M:%SZ")
-          .to_string(),
-      )
+      .created(chrono::Utc::now().format("%Y-%m-%dT%H:%M:%SZ").to_string())
       .creators(vec![format!(
         "Tool: {}-v{}",
         built_info::PKG_NAME,
