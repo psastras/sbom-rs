@@ -246,7 +246,7 @@ fn try_main() -> Result<()> {
 
   if !cargo_manifest_path.exists() {
     return Err(anyhow!(
-      "Cargo manfiest (Cargo.toml) does not exist in the supplied directory ({}).",
+      "Cargo manifest (Cargo.toml) does not exist in the supplied directory ({}).",
       opt.project_directory.canonicalize()?.to_string_lossy()
     ));
   }
