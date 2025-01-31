@@ -108,7 +108,7 @@ mod tests {
     );
 
     assert_eq!(
-      normalize_license_string("MIT / Apache-2.0").unwrap(),
+      normalize_license_string("MIT/Apache-2.0").unwrap(),
       "MIT OR Apache-2.0"
     );
 
