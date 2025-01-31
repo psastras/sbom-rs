@@ -270,8 +270,12 @@ fn try_main() -> Result<()> {
       serde_json::to_string_pretty(&cyclonedx)?
     )?;
   } else if matches!(opt.output_format, OutputFormat::SpdxJson_2_3) {
-    let spdx =
-      util::spdx::convert(opt.cargo_package, &opt.project_directory, &graph)?;
+    let spdx = util::spdx::convert(
+      opt.cargo_package,
+      &opt.project_directory,
+      &cargo_manifest_path,
+      &graph,
+    )?;
     writeln!(
       std::io::stdout(),
       "{}",

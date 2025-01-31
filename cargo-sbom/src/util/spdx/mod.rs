@@ -1,10 +1,14 @@
 pub mod license;
-use std::{collections::HashSet, path::Path};
+use std::{
+  collections::HashSet,
+  path::{Path, PathBuf},
+};
 
 use crate::graph::Graph;
 use anyhow::{anyhow, Ok, Result};
 use cargo_metadata::Package;
 use petgraph::visit::EdgeRef;
+use sha1::{Digest, Sha1};
 
 pub mod built_info {
   // The file has been placed there by the build script.
@@ -49,6 +53,42 @@ impl std::cmp::PartialEq for HashableSpdxItemRelationships {
 
 impl std::cmp::Eq for HashableSpdxItemRelationships {}
 
+/// All the data we use comes from the lock file, so we treat that
+/// as the root file of the package so we have something to checksum.
+fn process_root_file(
+  spdx_id: &str,
+  project_directory: &Path,
+  cargo_manifest_path: &Path,
+) -> Result<serde_spdx::spdx::v_2_3::SpdxItemFiles> {
+  let lockfile = cargo_manifest_path.canonicalize()?.with_extension("lock");
+  let contents = std::fs::read(&lockfile)?;
+  let checksum = Sha1::digest(&contents);
+
+  // SHA1 only algorithm supported
+  let checksum_element =
+    serde_spdx::spdx::v_2_3::SpdxItemFilesItemChecksumsBuilder::default()
+      .algorithm("SHA1")
+      .checksum_value(base16ct::lower::encode_string(&checksum))
+      .build()
+      .unwrap();
+
+  let relative_lockfile = PathBuf::from(&".")
+    .join(lockfile.strip_prefix(project_directory.canonicalize()?)?);
+  let relative_lockfile_string = relative_lockfile
+    .to_str()
+    .ok_or_else(|| anyhow!(&"Non-UTF8 relative lockfile path"))?;
+
+  std::result::Result::Ok(
+    serde_spdx::spdx::v_2_3::SpdxItemFilesBuilder::default()
+      .spdxid(spdx_id)
+      .file_name(relative_lockfile_string)
+      .checksums(vec![checksum_element])
+      .file_types(vec!["SOURCE".to_string(), "TEXT".to_string()])
+      .build()
+      .unwrap(),
+  )
+}
+
 /// Generate SPDXRef-Package-... and replace characters that are common but not permitted
 fn generate_project_id(package: &Package) -> String {
   // underscores become two dashes to avoid collisions with similarly named packages
@@ -60,6 +100,7 @@ fn generate_project_id(package: &Package) -> String {
 pub fn convert(
   cargo_package: Option<String>,
   project_directory: &Path,
+  cargo_manifest_path: &Path,
   graph: &Graph,
 ) -> Result<serde_spdx::spdx::v_2_3::Spdx> {
   let creation_info =
@@ -170,18 +211,15 @@ pub fn convert(
       .iter()
       .filter(|target| target.is_bin() || target.is_lib())
       .for_each(|target| {
+        let spdx_id = format!("SPDXRef-File-{}", target.name);
+
         files.push(
-          serde_spdx::spdx::v_2_3::SpdxItemFilesBuilder::default()
-            .spdxid(format!("SPDXRef-File-{}", target.name))
-            .checksums(vec![])
-            .file_name(&target.name)
-            .file_types(vec!["BINARY".to_string()])
-            .build()
+          process_root_file(&spdx_id, project_directory, cargo_manifest_path)
             .unwrap(),
         );
         relationships.insert(HashableSpdxItemRelationships(
           serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
-            .spdx_element_id(format!("SPDXRef-File-{}", target.name))
+            .spdx_element_id(&spdx_id)
             .related_spdx_element(generate_project_id(root))
             .relationship_type("GENERATED_FROM")
             .build()
