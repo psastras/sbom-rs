@@ -92,6 +92,10 @@ pub fn convert(
       let package = graph.graph[nx];
       let mut spdx_package_builder =
         serde_spdx::spdx::v_2_3::SpdxItemPackagesBuilder::default();
+      let normalized_license = package
+        .license
+        .as_ref()
+        .and_then(|license| license::normalize_license_string(license).ok());
 
       spdx_package_builder
         .spdxid(format!(
@@ -107,14 +111,11 @@ pub fn convert(
             .unwrap_or("NONE".to_string()),
         )
         .license_concluded(
-          license::normalize_license_string(
-            package.license.as_ref().unwrap_or(&"UNKNOWN".to_string()),
-          )
-          .unwrap_or("NOASSERTION".to_string()),
+          normalized_license.as_deref().unwrap_or("NOASSERTION"),
         )
         .name(&package.name);
 
-      if let Some(license_declared) = package.license.as_ref() {
+      if let Some(license_declared) = normalized_license {
         spdx_package_builder.license_declared(license_declared);
       }
 
