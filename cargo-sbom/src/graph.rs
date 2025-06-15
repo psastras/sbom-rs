@@ -43,7 +43,7 @@ pub fn build<'a>(metadata: &'a Metadata) -> Result<Graph<'a>, Error> {
       // https://github.com/rust-lang/cargo/issues/7752
       let mut kinds: Vec<DependencyKind> = vec![];
       for kind in dep.dep_kinds.iter() {
-        if !kinds.iter().any(|k| *k == kind.kind) {
+        if !kinds.contains(&kind.kind) {
           kinds.push(kind.kind);
         }
       }

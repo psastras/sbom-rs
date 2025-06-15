@@ -4,7 +4,6 @@ use std::{
 };
 
 use anyhow::Result;
-use assert_cmd::Command;
 use pretty_assertions::assert_eq;
 
 #[test]
