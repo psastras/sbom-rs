@@ -12,7 +12,7 @@ path = "examples_test.rs"
 anyhow = "1.0.86"
 assert_cmd = "2.0.14"
 escargot = "0.5.11"
-predicates = "3.1.0"
+predicates = "3.1.3"
 pretty_assertions = "1.4.0"
 serde-cyclonedx = { path = "../serde-cyclonedx", version = "0.9.1" }
 serde_json = "1.0.120"
