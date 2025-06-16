@@ -137,11 +137,11 @@ fn test_cargo_binary_cyclonedx_1_6_example() -> Result<()> {
   assert_eq!(output_sbom.bom_format, "CycloneDX");
   assert_eq!(output_sbom.spec_version, "1.6");
   assert_eq!(output_sbom.version, Some(1));
-  
+
   // Ensure we have components and metadata
   assert!(output_sbom.components.is_some());
   assert!(output_sbom.metadata.is_some());
   assert!(output_sbom.components.unwrap().len() > 0);
-  
+
   Ok(())
 }
