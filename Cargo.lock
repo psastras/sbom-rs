@@ -398,9 +398,9 @@ checksum = "88bffebc5d80432c9b140ee17875ff173a8ab62faad5b257da912bd2f6c1c0a1"
 
 [[package]]
 name = "escargot"
-version = "0.5.11"
+version = "0.5.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "650eb5f6eeda986377996e9ed570cbc20cc16d30440696f82f129c863e4e3e83"
+checksum = "83f351750780493fc33fa0ce8ba3c7d61f9736cfa3b3bb9ee2342643ffe40211"
 dependencies = [
  "log",
  "once_cell",
