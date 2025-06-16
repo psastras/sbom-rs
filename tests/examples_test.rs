@@ -145,3 +145,39 @@ fn test_cargo_binary_cyclonedx_1_6_example() -> Result<()> {
 
   Ok(())
 }
+
+#[test]
+fn test_cargo_binary_cyclonedx_1_5_example() -> Result<()> {
+  let project_path = PathBuf::from("./examples/cargo-binary");
+  let mut assert_cmd = assert_cmd::Command::from_std(
+    escargot::CargoBuild::new()
+      .manifest_path("../Cargo.toml")
+      .bin("cargo-sbom")
+      .env("RUSTFLAGS", "-C instrument-coverage")
+      .run()
+      .unwrap()
+      .command(),
+  );
+  assert_cmd
+    .arg("--project-directory")
+    .arg(&project_path)
+    .arg("--output-format")
+    .arg("cyclone_dx_json_1_5");
+
+  let cmd = assert_cmd.assert().success();
+  let output = cmd.get_output();
+  let output_sbom: serde_cyclonedx::cyclonedx::v_1_5::CycloneDx =
+    serde_json::from_slice(output.stdout.as_slice())?;
+
+  // Basic validation that the CycloneDX 1.5 format is working
+  assert_eq!(output_sbom.bom_format, "CycloneDX");
+  assert_eq!(output_sbom.spec_version, "1.5");
+  assert_eq!(output_sbom.version, Some(1));
+
+  // Ensure we have components and metadata
+  assert!(output_sbom.components.is_some());
+  assert!(output_sbom.metadata.is_some());
+  assert!(output_sbom.components.unwrap().len() > 0);
+
+  Ok(())
+}
