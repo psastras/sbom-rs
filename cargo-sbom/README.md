@@ -44,7 +44,7 @@ Options:
       --cargo-package <CARGO_PACKAGE>
           The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace.
       --output-format <OUTPUT_FORMAT>
-          The SBOM output format. [default: spdx_json_2_3] [possible values: spdx_json_2_3, cyclone_dx_json_1_4]
+          The SBOM output format. [default: spdx_json_2_3] [possible values: spdx_json_2_3, cyclone_dx_json_1_4, cyclone_dx_json_1_6]
       --project-directory <PROJECT_DIRECTORY>
           The directory to the Cargo project. [default: .]
   -h, --help
@@ -89,6 +89,19 @@ jobs:
     - uses: psastras/sbom-rs/actions/install-cargo-sbom@cargo-sbom-latest
     - name: Run cargo-sbom
       run: cargo-sbom --output-format=cyclone_dx_json_1_4
+```
+
+### Create a CycloneDx 1.6 SBOM in Github Actions
+
+```yaml
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: psastras/sbom-rs/actions/install-cargo-sbom@cargo-sbom-latest
+    - name: Run cargo-sbom
+      run: cargo-sbom --output-format=cyclone_dx_json_1_6
 ```
 
 ### Check Dependencies against the Open Source Vulnerability Database (OSV)
@@ -139,11 +152,13 @@ More examples can be found by browsing the [examples section](https://github.com
 
 ### CycloneDx
 
+Supports CycloneDX formats 1.4 and 1.6.
+
 | CycloneDx Field               | Source                                                                            |
 |-------------------------------|-----------------------------------------------------------------------------------|
 | bomFormat                     | Set to "CycloneDX"                                                                |
 | serialNumber                  | Set to "urn:uuid:(uuidv4)"                                                        |
-| specVersion                   | Set to 1.4                                                                        |
+| specVersion                   | Set to 1.4 or 1.6 (depending on output format selected)                          |
 | version                       | Set to 1                                                                          |
 | metadata                      |                                                                                   |
 | metadata.component            | parsed from the root workspace                                                    |
