@@ -13,7 +13,7 @@ documentation = "https://docs.rs/cargo_sbom"
 repository = "https://github.com/psastras/sbom-rs"
 
 [dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.98"
 cargo_metadata = "0.18.1"
 chrono = "0.4.38"
 clap = { version = "4.5.13", features = ["derive", "string"] }
@@ -37,7 +37,7 @@ path = "src/main.rs"
 built = "0.7"
 
 [dependencies.uuid]
-version = "1.10.0"
+version = "1.16.0"
 features = [
     "v4",                # Lets you generate random UUIDs
 ]
