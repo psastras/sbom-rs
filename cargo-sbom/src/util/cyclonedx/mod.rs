@@ -54,7 +54,9 @@ impl std::cmp::PartialEq for HashableCycloneDxDependency {
 impl std::cmp::Eq for HashableCycloneDxDependency {}
 
 // V1.6 specific hashable types
-struct HashableCycloneDxComponent1_6(serde_cyclonedx::cyclonedx::v_1_6::Component);
+struct HashableCycloneDxComponent1_6(
+  serde_cyclonedx::cyclonedx::v_1_6::Component,
+);
 
 impl std::hash::Hash for HashableCycloneDxComponent1_6 {
   fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
