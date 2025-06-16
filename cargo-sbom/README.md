@@ -152,13 +152,13 @@ More examples can be found by browsing the [examples section](https://github.com
 
 ### CycloneDx
 
-Supports CycloneDX formats 1.4 and 1.6.
+Supports CycloneDX formats 1.4, 1.5, and 1.6.
 
 | CycloneDx Field               | Source                                                                            |
 |-------------------------------|-----------------------------------------------------------------------------------|
 | bomFormat                     | Set to "CycloneDX"                                                                |
 | serialNumber                  | Set to "urn:uuid:(uuidv4)"                                                        |
-| specVersion                   | Set to 1.4 or 1.6 (depending on output format selected)                          |
+| specVersion                   | Set to 1.4, 1.5, or 1.6 (depending on output format selected)                   |
 | version                       | Set to 1                                                                          |
 | metadata                      |                                                                                   |
 | metadata.component            | parsed from the root workspace                                                    |
