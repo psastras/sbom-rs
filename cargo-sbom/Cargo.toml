@@ -25,7 +25,7 @@ serde-cyclonedx = { path = "../serde-cyclonedx", version = "0.9.1" }
 serde-spdx = { path = "../serde-spdx", version = "0.9.1" }
 serde_json = "1.0.120"
 spdx = "0.10.6"
-whoami = "1.5.1"
+whoami = "1.6.0"
 
 [[bin]]
 name = "cargo-sbom"
@@ -35,7 +35,7 @@ path = "src/main.rs"
 built = "0.7"
 
 [dependencies.uuid]
-version = "1.10.0"
+version = "1.16.0"
 features = [
     "v4",                # Lets you generate random UUIDs
 ]
