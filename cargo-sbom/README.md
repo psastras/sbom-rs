@@ -44,7 +44,7 @@ Options:
       --cargo-package <CARGO_PACKAGE>
           The specific package (in a Cargo workspace) to generate an SBOM for. If not specified this is all packages in the workspace.
       --output-format <OUTPUT_FORMAT>
-          The SBOM output format. [default: spdx_json_2_3] [possible values: spdx_json_2_3, cyclone_dx_json_1_4, cyclone_dx_json_1_6]
+          The SBOM output format. [default: spdx_json_2_3] [possible values: spdx_json_2_3, spdx_json_3_0_1, cyclone_dx_json_1_4, cyclone_dx_json_1_5, cyclone_dx_json_1_6]
       --project-directory <PROJECT_DIRECTORY>
           The directory to the Cargo project. [default: .]
   -h, --help
@@ -74,6 +74,25 @@ $ cargo sbom
   "files": [
     {
   <rest of output omitted>
+```
+
+### Create a SPDX 3.0.1 SBOM for a Cargo project
+
+```shell
+$ cargo sbom --output-format=spdx_json_3_0_1
+{
+  "@context": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+  "@graph": [
+    {
+      "type": "CreationInfo",
+      "@id": "_:creationinfo",
+      "createdBy": ["http://spdx.example.com/Agent/cargo-sbom-v0.10.0"],
+      "specVersion": "3.0.1",
+      "created": "2024-03-06T00:00:00Z"
+    },
+    <rest of output omitted>
+  ]
+}
 ```
 
 ### Create a CycloneDx SBOM in Github Actions

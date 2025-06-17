@@ -266,3 +266,164 @@ pub fn convert(
       .build()?,
   )
 }
+
+/// Generate SPDX 3.0.1 element ID
+fn generate_spdx_3_0_1_id(package: &Package) -> String {
+  format!("http://spdx.example.com/Package/{}/{}", package.name, package.version)
+}
+
+pub fn convert_3_0_1(
+  cargo_package: Option<String>,
+  project_directory: &Path,
+  _cargo_manifest_path: &Path,
+  graph: &Graph,
+) -> Result<serde_spdx::spdx::v_3_0_1::Spdx> {
+  use serde_json::json;
+  
+  let mut graph_elements = vec![];
+  let current_time = chrono::Utc::now().format("%Y-%m-%dT%H:%M:%SZ").to_string();
+  
+  // Create CreationInfo element
+  let creation_info_json = json!({
+    "type": "CreationInfo",
+    "@id": "_:creationinfo",
+    "createdBy": [format!("http://spdx.example.com/Agent/{}-v{}", built_info::PKG_NAME, built_info::PKG_VERSION)],
+    "specVersion": "3.0.1",
+    "created": current_time
+  });
+  
+  graph_elements.push(creation_info_json);
+  
+  // Create Person element for the tool
+  let person_json = json!({
+    "type": "Person",
+    "spdxId": format!("http://spdx.example.com/Agent/{}-v{}", built_info::PKG_NAME, built_info::PKG_VERSION),
+    "name": format!("{} v{}", built_info::PKG_NAME, built_info::PKG_VERSION),
+    "creationInfo": "_:creationinfo"
+  });
+  
+  graph_elements.push(person_json);
+  
+  let mut package_ids = vec![];
+  let mut relationship_elements = vec![];
+  
+  // Process packages
+  for root_package_id in graph.root_packages.iter() {
+    let root_node_index = graph
+      .nodes
+      .get(root_package_id)
+      .ok_or(anyhow!("No root node. Shouldn't reach here."))?;
+    let root = graph.graph[*root_node_index];
+    if let Some(r) = cargo_package.as_ref() {
+      if r != &root.name {
+        continue;
+      }
+    }
+
+    let mut dfs = petgraph::visit::Dfs::new(&graph.graph, *root_node_index);
+    while let Some(nx) = dfs.next(&graph.graph) {
+      let edges = graph.graph.edges(nx);
+      let package = graph.graph[nx];
+      
+      let package_id = generate_spdx_3_0_1_id(package);
+      package_ids.push(package_id.clone());
+      
+      let normalized_license = package
+        .license
+        .as_ref()
+        .and_then(|license| license::normalize_license_string(license).ok());
+
+      let mut package_json = json!({
+        "type": "software_Package",
+        "spdxId": package_id,
+        "name": package.name,
+        "downloadLocation": package
+          .source
+          .as_ref()
+          .map(|source| source.to_string())
+          .unwrap_or("NONE".to_string()),
+        "filesAnalyzed": false,
+        "licenseConcluded": normalized_license.as_deref().unwrap_or("NOASSERTION"),
+        "copyrightText": "NOASSERTION",
+        "creationInfo": "_:creationinfo",
+        "versionInfo": package.version.to_string()
+      });
+
+      if let Some(license_declared) = normalized_license {
+        package_json["licenseDeclared"] = json!(license_declared);
+      }
+
+      if let Some(description) = package.description.as_ref() {
+        package_json["description"] = json!(description);
+      }
+
+      graph_elements.push(package_json);
+
+      // Create relationship elements
+      edges.for_each(|e| {
+        let source = &graph.graph[e.source()];
+        let target = &graph.graph[e.target()];
+        let relationship_id = format!("_:relationship-{}-{}", source.name, target.name);
+        
+        let relationship_json = json!({
+          "type": "Relationship",
+          "spdxId": relationship_id,
+          "relationshipType": "dependsOn",
+          "from": generate_spdx_3_0_1_id(source),
+          "to": [generate_spdx_3_0_1_id(target)],
+          "creationInfo": "_:creationinfo"
+        });
+        
+        relationship_elements.push(relationship_json);
+      });
+    }
+  }
+
+  // Add relationships to graph
+  graph_elements.extend(relationship_elements);
+
+  // Create SBOM element
+  let absolute_project_directory = project_directory.canonicalize()?;
+  let manifest_folder = absolute_project_directory
+    .file_name()
+    .ok_or(anyhow!("Failed to determine parent folder of Cargo.toml. Unable to assign a SPDX document name."))?;
+  let name = cargo_package
+    .unwrap_or_else(|| manifest_folder.to_string_lossy().to_string());
+  
+  let sbom_id = format!("http://spdx.example.com/Sbom/{}", name);
+  let sbom_json = json!({
+    "type": "software_Sbom",
+    "spdxId": sbom_id,
+    "creationInfo": "_:creationinfo",
+    "rootElement": package_ids
+  });
+  
+  graph_elements.push(sbom_json);
+
+  // Create SpdxDocument
+  let document_id = format!("http://spdx.example.com/Document/{}", name);
+  let mut element_ids = vec![sbom_id];
+  element_ids.extend(package_ids);
+  element_ids.push(format!("http://spdx.example.com/Agent/{}-v{}", built_info::PKG_NAME, built_info::PKG_VERSION));
+  
+  let document_json = json!({
+    "type": "SpdxDocument",
+    "spdxId": document_id,
+    "creationInfo": "_:creationinfo",
+    "rootElement": [format!("http://spdx.example.com/Sbom/{}", name)],
+    "element": element_ids,
+    "profileConformance": ["core", "software"]
+  });
+  
+  graph_elements.push(document_json);
+
+  // Create the final SPDX structure
+  let spdx_json = json!({
+    "@context": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+    "@graph": graph_elements
+  });
+
+  // Convert to our struct
+  let spdx: serde_spdx::spdx::v_3_0_1::Spdx = serde_json::from_value(spdx_json)?;
+  Ok(spdx)
+}

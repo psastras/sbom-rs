@@ -8,6 +8,10 @@ publish = false
 name = "test_examples"
 path = "examples_test.rs"
 
+[[test]]
+name = "spdx_3_0_1_integration_test"
+path = "spdx_3_0_1_integration_test.rs"
+
 [dev-dependencies]
 anyhow = "1.0.98"
 assert_cmd = "2.0.17"
