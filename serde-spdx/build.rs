@@ -98,6 +98,7 @@ fn generate_schema(version_str: &str) -> Result<()> {
 
 fn main() -> Result<()> {
   generate_schema("2_3")?;
+  generate_schema("3_0_1")?;
 
   Ok(())
 }

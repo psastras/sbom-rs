@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "http://spdx.org/rdf/terms/3.0.1",
+  "title": "SPDX 3.0.1",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string",
+      "description": "JSON-LD context for SPDX 3.0.1",
+      "default": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld"
+    },
+    "@graph": {
+      "type": "array",
+      "description": "Array of SPDX elements",
+      "items": {
+        "$ref": "#/definitions/SpdxElement"
+      }
+    }
+  },
+  "required": ["@context", "@graph"],
+  "definitions": {
+    "SpdxElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of the SPDX element"
+        },
+        "spdxId": {
+          "type": "string",
+          "description": "Unique identifier for the element"
+        },
+        "@id": {
+          "type": "string",
+          "description": "JSON-LD identifier"
+        },
+        "creationInfo": {
+          "oneOf": [
+            {"type": "string"},
+            {"$ref": "#/definitions/CreationInfo"}
+          ]
+        }
+      },
+      "oneOf": [
+        {"$ref": "#/definitions/CreationInfo"},
+        {"$ref": "#/definitions/Person"},
+        {"$ref": "#/definitions/SpdxDocument"},
+        {"$ref": "#/definitions/Sbom"},
+        {"$ref": "#/definitions/Package"},
+        {"$ref": "#/definitions/Relationship"},
+        {"$ref": "#/definitions/ExternalIdentifier"}
+      ]
+    },
+    "CreationInfo": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "CreationInfo"
+        },
+        "@id": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "specVersion": {
+          "type": "string",
+          "const": "3.0.1"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["type", "specVersion", "created", "createdBy"]
+    },
+    "Person": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "Person"
+        },
+        "spdxId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "creationInfo": {
+          "type": "string"
+        },
+        "externalIdentifier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExternalIdentifier"
+          }
+        }
+      },
+      "required": ["type", "spdxId", "name"]
+    },
+    "SpdxDocument": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "SpdxDocument"
+        },
+        "spdxId": {
+          "type": "string"
+        },
+        "creationInfo": {
+          "type": "string"
+        },
+        "rootElement": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "element": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileConformance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["type", "spdxId"]
+    },
+    "Sbom": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["software_Sbom", "Sbom"]
+        },
+        "spdxId": {
+          "type": "string"
+        },
+        "creationInfo": {
+          "type": "string"
+        },
+        "rootElement": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["type", "spdxId"]
+    },
+    "Package": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["software_Package", "Package"]
+        },
+        "spdxId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "downloadLocation": {
+          "type": "string"
+        },
+        "filesAnalyzed": {
+          "type": "boolean"
+        },
+        "licenseConcluded": {
+          "type": "string"
+        },
+        "licenseDeclared": {
+          "type": "string"
+        },
+        "copyrightText": {
+          "type": "string"
+        },
+        "creationInfo": {
+          "type": "string"
+        },
+        "suppliedBy": {
+          "type": "string"
+        },
+        "versionInfo": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "spdxId", "name"]
+    },
+    "Relationship": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "Relationship"
+        },
+        "spdxId": {
+          "type": "string"
+        },
+        "relationshipType": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "creationInfo": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "spdxId", "relationshipType", "from", "to"]
+    },
+    "ExternalIdentifier": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "ExternalIdentifier"
+        },
+        "externalIdentifierType": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "externalIdentifierType", "identifier"]
+    }
+  }
+}
