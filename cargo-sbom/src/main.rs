@@ -270,13 +270,13 @@ fn try_main() -> Result<()> {
 
   if !cargo_manifest_path.exists() {
     return Err(anyhow!(
-      "Cargo manfiest (Cargo.toml) does not exist in the supplied directory ({}).",
+      "Cargo manifest (Cargo.toml) does not exist in the supplied directory ({}).",
       opt.project_directory.canonicalize()?.to_string_lossy()
     ));
   }
 
   let metadata = MetadataCommand::new()
-    .manifest_path(cargo_manifest_path)
+    .manifest_path(&cargo_manifest_path)
     .features(CargoOpt::AllFeatures)
     .exec()?;
 
@@ -316,8 +316,12 @@ fn try_main() -> Result<()> {
       serde_json::to_string_pretty(&cyclonedx)?
     )?;
   } else if matches!(opt.output_format, OutputFormat::SpdxJson_2_3) {
-    let spdx =
-      util::spdx::convert(opt.cargo_package, opt.project_directory, &graph)?;
+    let spdx = util::spdx::convert(
+      opt.cargo_package,
+      &opt.project_directory,
+      &cargo_manifest_path,
+      &graph,
+    )?;
     writeln!(
       std::io::stdout(),
       "{}",

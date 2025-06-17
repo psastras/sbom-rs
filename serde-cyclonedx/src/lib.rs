@@ -1,4 +1,5 @@
 #![doc(html_root_url = "https://docs.rs/serde-cyclonedx/0.9.1")]
+#![allow(clippy::doc_lazy_continuation)]
 
 //! # serde-cyclonedx
 //!

@@ -1,10 +1,14 @@
 use anyhow::{anyhow, Ok, Result};
 
-pub fn normalize_license_string<S: AsRef<str>>(
+pub fn normalize_license_string<S: AsRef<str> + ToString>(
   rust_license_string: S,
 ) -> Result<String> {
+  let quotes: &[_] = &['"', '\''];
   let license_expr = spdx::Expression::parse_mode(
-    rust_license_string.as_ref(),
+    rust_license_string
+      .as_ref()
+      .trim_start_matches(quotes)
+      .trim_end_matches(quotes),
     spdx::ParseMode::LAX,
   )?;
 
@@ -101,6 +105,19 @@ mod tests {
   use super::*;
 
   #[test]
+  fn test_quotation() {
+    assert_eq!(
+      normalize_license_string("'MIT OR Apache-2.0'").unwrap(),
+      "MIT OR Apache-2.0"
+    );
+
+    assert_eq!(
+      normalize_license_string("\"MIT OR Apache-2.0\"").unwrap(),
+      "MIT OR Apache-2.0"
+    );
+  }
+
+  #[test]
   fn test_or() {
     assert_eq!(
       normalize_license_string("MIT OR Apache-2.0").unwrap(),
@@ -108,7 +125,7 @@ mod tests {
     );
 
     assert_eq!(
-      normalize_license_string("MIT / Apache-2.0").unwrap(),
+      normalize_license_string("MIT/Apache-2.0").unwrap(),
       "MIT OR Apache-2.0"
     );
 
