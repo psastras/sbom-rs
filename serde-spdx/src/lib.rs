@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/serde-spdx/0.9.1")]
+#![doc(html_root_url = "https://docs.rs/serde-spdx/0.10.0")]
 #![allow(clippy::doc_lazy_continuation)]
 
 //! # serde-spdx
@@ -32,7 +32,7 @@
 //!   "creationInfo": {
 //!     "created": "2023-07-11T00:25:33.110Z",
 //!     "creators": [
-//!       "Tool: cargo-sbom-v0.9.1"
+//!       "Tool: cargo-sbom-v0.10.0"
 //!     ]
 //!   },
 //!   "dataLicense": "CC0-1.0",
