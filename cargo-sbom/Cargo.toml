@@ -44,7 +44,7 @@ features = [
 
 [dev-dependencies]
 duct = "0.13.7"
-duct_sh = "0.13.7"
+duct_sh = "1.0.0"
 
 [package.metadata.binstall]
 pkg-url = "{ repo }/releases/download/{ name }-v{ version }/{ name }-{ target }"
