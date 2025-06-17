@@ -34,7 +34,7 @@ name = "cargo-sbom"
 path = "src/main.rs"
 
 [build-dependencies]
-built = "0.7"
+built = "0.8"
 
 [dependencies.uuid]
 version = "1.16.0"
