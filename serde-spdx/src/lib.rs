@@ -19,10 +19,11 @@
 //!
 //! ## Usage
 //!
-//! For most cases, simply use the root [spdx::v_2_3::Spdx] struct with [serde] to read
-//! and write to and from the struct.
+//! For most cases, simply use the root [spdx::v_2_3::Spdx] struct for SPDX 2.3 or 
+//! [spdx::v_3_0_1::Spdx] struct for SPDX 3.0.1 with [serde] to read and write to and 
+//! from the struct.
 //!
-//! ## Example
+//! ## SPDX 2.3 Example
 //!
 //! ```rust
 //! use serde_spdx::spdx::v_2_3::Spdx;
@@ -42,11 +43,30 @@
 //! }"#).unwrap();
 //! ```
 //!
+//! ## SPDX 3.0.1 Example
+//!
+//! ```rust
+//! use serde_spdx::spdx::v_3_0_1::Spdx;
+//!
+//! let spdx: Spdx = serde_json::from_str(r#"{
+//!   "@context": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+//!   "@graph": [
+//!     {
+//!       "type": "CreationInfo",
+//!       "@id": "_:creationinfo",
+//!       "createdBy": ["http://spdx.example.com/Agent/Tool"],
+//!       "specVersion": "3.0.1",
+//!       "created": "2024-03-06T00:00:00Z"
+//!     }
+//!   ]
+//! }"#).unwrap();
+//! ```
+//!
 //! Because many of the [spdx::v_2_3::Spdx] structures contain a lot of optional fields,
 //! it is often convenient to use the builder pattern to contstruct these structs.
 //! Each structure has a builder with a default.
 //!
-//! ## Example
+//! ## Builder Example
 //!
 //! ```rust
 //! use serde_spdx::spdx::v_2_3::SpdxCreationInfoBuilder;
