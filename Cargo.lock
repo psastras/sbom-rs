@@ -187,7 +187,7 @@ dependencies = [
  "chrono",
  "clap",
  "clap-cargo",
- "duct",
+ "duct 0.13.7",
  "duct_sh",
  "packageurl",
  "petgraph",
@@ -432,12 +432,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "duct_sh"
-version = "0.13.7"
+name = "duct"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5a6633cadba557545fbbe0299a2f9adc4bb2fc5fb238773f5e841e0c23d62146"
+checksum = "b6ce170a0e8454fa0f9b0e5ca38a6ba17ed76a50916839d217eb5357e05cdfde"
 dependencies = [
- "duct",
+ "libc",
+ "os_pipe",
+ "shared_child",
+ "shared_thread",
+]
+
+[[package]]
+name = "duct_sh"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c8139179d1d133ab7153920ba3812915b17c61e2514a6f98b1fd03f2c07668d1"
+dependencies = [
+ "duct 1.0.0",
 ]
 
 [[package]]
@@ -907,6 +919,12 @@ dependencies = [
  "sigchld",
  "windows-sys 0.60.2",
 ]
+
+[[package]]
+name = "shared_thread"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7a6f98357c6bb0ebace19b22220e5543801d9de90ffe77f8abb27c056bac064"
 
 [[package]]
 name = "shlex"
