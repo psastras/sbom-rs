@@ -269,7 +269,10 @@ pub fn convert(
 
 /// Generate SPDX 3.0.1 element ID
 fn generate_spdx_3_0_1_id(package: &Package) -> String {
-  format!("http://spdx.example.com/Package/{}/{}", package.name, package.version)
+  format!(
+    "http://spdx.example.com/Package/{}/{}",
+    package.name, package.version
+  )
 }
 
 pub fn convert_3_0_1(
@@ -279,10 +282,11 @@ pub fn convert_3_0_1(
   graph: &Graph,
 ) -> Result<serde_spdx::spdx::v_3_0_1::Spdx> {
   use serde_json::json;
-  
+
   let mut graph_elements = vec![];
-  let current_time = chrono::Utc::now().format("%Y-%m-%dT%H:%M:%SZ").to_string();
-  
+  let current_time =
+    chrono::Utc::now().format("%Y-%m-%dT%H:%M:%SZ").to_string();
+
   // Create CreationInfo element
   let creation_info_json = json!({
     "type": "CreationInfo",
@@ -291,9 +295,9 @@ pub fn convert_3_0_1(
     "specVersion": "3.0.1",
     "created": current_time
   });
-  
+
   graph_elements.push(creation_info_json);
-  
+
   // Create Person element for the tool
   let person_json = json!({
     "type": "Person",
@@ -301,12 +305,12 @@ pub fn convert_3_0_1(
     "name": format!("{} v{}", built_info::PKG_NAME, built_info::PKG_VERSION),
     "creationInfo": "_:creationinfo"
   });
-  
+
   graph_elements.push(person_json);
-  
+
   let mut package_ids = vec![];
   let mut relationship_elements = vec![];
-  
+
   // Process packages
   for root_package_id in graph.root_packages.iter() {
     let root_node_index = graph
@@ -324,10 +328,10 @@ pub fn convert_3_0_1(
     while let Some(nx) = dfs.next(&graph.graph) {
       let edges = graph.graph.edges(nx);
       let package = graph.graph[nx];
-      
+
       let package_id = generate_spdx_3_0_1_id(package);
       package_ids.push(package_id.clone());
-      
+
       let normalized_license = package
         .license
         .as_ref()
@@ -363,8 +367,9 @@ pub fn convert_3_0_1(
       edges.for_each(|e| {
         let source = &graph.graph[e.source()];
         let target = &graph.graph[e.target()];
-        let relationship_id = format!("_:relationship-{}-{}", source.name, target.name);
-        
+        let relationship_id =
+          format!("_:relationship-{}-{}", source.name, target.name);
+
         let relationship_json = json!({
           "type": "Relationship",
           "spdxId": relationship_id,
@@ -373,7 +378,7 @@ pub fn convert_3_0_1(
           "to": [generate_spdx_3_0_1_id(target)],
           "creationInfo": "_:creationinfo"
         });
-        
+
         relationship_elements.push(relationship_json);
       });
     }
@@ -389,7 +394,7 @@ pub fn convert_3_0_1(
     .ok_or(anyhow!("Failed to determine parent folder of Cargo.toml. Unable to assign a SPDX document name."))?;
   let name = cargo_package
     .unwrap_or_else(|| manifest_folder.to_string_lossy().to_string());
-  
+
   let sbom_id = format!("http://spdx.example.com/Sbom/{}", name);
   let sbom_json = json!({
     "type": "software_Sbom",
@@ -397,15 +402,19 @@ pub fn convert_3_0_1(
     "creationInfo": "_:creationinfo",
     "rootElement": package_ids
   });
-  
+
   graph_elements.push(sbom_json);
 
   // Create SpdxDocument
   let document_id = format!("http://spdx.example.com/Document/{}", name);
   let mut element_ids = vec![sbom_id];
   element_ids.extend(package_ids);
-  element_ids.push(format!("http://spdx.example.com/Agent/{}-v{}", built_info::PKG_NAME, built_info::PKG_VERSION));
-  
+  element_ids.push(format!(
+    "http://spdx.example.com/Agent/{}-v{}",
+    built_info::PKG_NAME,
+    built_info::PKG_VERSION
+  ));
+
   let document_json = json!({
     "type": "SpdxDocument",
     "spdxId": document_id,
@@ -414,7 +423,7 @@ pub fn convert_3_0_1(
     "element": element_ids,
     "profileConformance": ["core", "software"]
   });
-  
+
   graph_elements.push(document_json);
 
   // Create the final SPDX structure
@@ -424,6 +433,7 @@ pub fn convert_3_0_1(
   });
 
   // Convert to our struct
-  let spdx: serde_spdx::spdx::v_3_0_1::Spdx = serde_json::from_value(spdx_json)?;
+  let spdx: serde_spdx::spdx::v_3_0_1::Spdx =
+    serde_json::from_value(spdx_json)?;
   Ok(spdx)
 }

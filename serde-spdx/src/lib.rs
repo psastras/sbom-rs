@@ -19,8 +19,8 @@
 //!
 //! ## Usage
 //!
-//! For most cases, simply use the root [spdx::v_2_3::Spdx] struct for SPDX 2.3 or 
-//! [spdx::v_3_0_1::Spdx] struct for SPDX 3.0.1 with [serde] to read and write to and 
+//! For most cases, simply use the root [spdx::v_2_3::Spdx] struct for SPDX 2.3 or
+//! [spdx::v_3_0_1::Spdx] struct for SPDX 3.0.1 with [serde] to read and write to and
 //! from the struct.
 //!
 //! ## SPDX 2.3 Example
