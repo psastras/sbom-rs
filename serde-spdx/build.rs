@@ -77,8 +77,8 @@ fn process_token_stream(input: proc_macro2::TokenStream) -> syn::File {
 }
 
 fn generate_schema(version_str: &str) -> Result<()> {
-  println!("cargo:rerun-if-changed=schemas/spdx_{}.json", version_str);
-  let path_str = format!("schemas/spdx_{}.json", version_str);
+  println!("cargo:rerun-if-changed=schemas/spdx_{version_str}.json",);
+  let path_str = format!("schemas/spdx_{version_str}.json",);
   let path = Path::new(&path_str);
 
   // Generate the Rust schema struct
@@ -91,7 +91,7 @@ fn generate_schema(version_str: &str) -> Result<()> {
   // Write the struct to the $OUT_DIR/spdx.rs file.
   let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
   let mut file =
-    File::create(out_path.join(format!("spdx_{}.rs", version_str)))?;
+    File::create(out_path.join(format!("spdx_{version_str}.rs",)))?;
   file.write_all(prettyplease::unparse(&generated).as_bytes())?;
   Ok(())
 }
