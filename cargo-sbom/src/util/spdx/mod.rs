@@ -249,9 +249,7 @@ pub fn convert(
       .spdxid("SPDXRef-DOCUMENT")
       .creation_info(creation_info)
       .data_license("CC0-1.0")
-      .document_namespace(format!(
-        "https://spdx.org/spdxdocs/{name}-{uuid}"
-      ))
+      .document_namespace(format!("https://spdx.org/spdxdocs/{name}-{uuid}"))
       .files(files)
       .name(name)
       .spdx_version("SPDX-2.3")
