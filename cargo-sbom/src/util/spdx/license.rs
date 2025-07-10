@@ -21,7 +21,7 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
   for node in license_expr.iter() {
     match node {
       spdx::expression::ExprNode::Req(req) => {
-        string_stack.push(req.req.license.to_string());
+        string_stack.push(req.req.to_string());
         op_stack.push(None);
       }
       spdx::expression::ExprNode::Op(spdx::expression::Operator::Or) => {
@@ -103,6 +103,19 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_exceptions() {
+    assert_eq!(
+      normalize_license_string("Apache-2.0 WITH LLVM-exception").unwrap(),
+      "Apache-2.0 WITH LLVM-exception"
+    );
+
+    assert_eq!(
+      normalize_license_string("Apache-2.0 WITH LLVM-exception/MIT").unwrap(),
+      "Apache-2.0 WITH LLVM-exception OR MIT"
+    );
+  }
 
   #[test]
   fn test_quotation() {
