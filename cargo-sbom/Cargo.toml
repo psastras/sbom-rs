@@ -17,7 +17,7 @@ anyhow = "1.0.98"
 cargo_metadata = "0.18.1"
 chrono = "0.4.38"
 clap = { version = "4.5.43", features = ["derive", "string"] }
-clap-cargo = "0.15.2"
+clap-cargo = "0.16.0"
 packageurl = "0.4.0"
 petgraph = "0.8.2"
 semver = "1.0.23"
