@@ -23,7 +23,7 @@ petgraph = "0.8.2"
 semver = "1.0.23"
 serde-cyclonedx = { path = "../serde-cyclonedx", version = "0.10.0" }
 serde-spdx = { path = "../serde-spdx", version = "0.10.0" }
-serde_json = "1.0.120"
+serde_json = "1.0.142"
 spdx = "0.11.1"
 whoami = "1.6.0"
 sha1 = "0.10.6"
