@@ -665,12 +665,12 @@ dependencies = [
 
 [[package]]
 name = "packageurl"
-version = "0.4.2"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0f0b986147b7e6ab812eeb9dfd0bd5cd4afd263e50b2abf2d15a4a094890a88"
+checksum = "b2075186e1968678dc1b2ac0128287e970d642eab4c906bcc6352afd2dd83853"
 dependencies = [
  "percent-encoding",
- "thiserror 1.0.69",
+ "thiserror 2.0.12",
 ]
 
 [[package]]
