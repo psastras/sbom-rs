@@ -237,11 +237,11 @@ struct Opt {
 
 fn main() {
   if let Err(err) = try_main() {
-    eprintln!("ERROR: {}", err);
+    eprintln!("ERROR: {err}");
     err
       .chain()
       .skip(1)
-      .for_each(|cause| eprintln!("because: {}", cause));
+      .for_each(|cause| eprintln!("because: {cause}"));
     std::process::exit(1);
   }
 }
