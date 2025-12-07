@@ -141,7 +141,7 @@ fn test_cargo_binary_cyclonedx_1_6_example() -> Result<()> {
   // Ensure we have components and metadata
   assert!(output_sbom.components.is_some());
   assert!(output_sbom.metadata.is_some());
-  assert!(output_sbom.components.unwrap().len() > 0);
+  assert!(!output_sbom.components.unwrap().is_empty());
 
   Ok(())
 }
@@ -177,7 +177,7 @@ fn test_cargo_binary_cyclonedx_1_5_example() -> Result<()> {
   // Ensure we have components and metadata
   assert!(output_sbom.components.is_some());
   assert!(output_sbom.metadata.is_some());
-  assert!(output_sbom.components.unwrap().len() > 0);
+  assert!(!output_sbom.components.unwrap().is_empty());
 
   Ok(())
 }
