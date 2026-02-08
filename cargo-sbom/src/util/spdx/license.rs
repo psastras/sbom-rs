@@ -21,7 +21,7 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
   for node in license_expr.iter() {
     match node {
       spdx::expression::ExprNode::Req(req) => {
-        string_stack.push(req.req.license.to_string());
+        string_stack.push(req.req.to_string());
         op_stack.push(None);
       }
       spdx::expression::ExprNode::Op(spdx::expression::Operator::Or) => {
@@ -51,7 +51,7 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
         })?;
 
         op_stack.push(Some(spdx::expression::Operator::Or));
-        string_stack.push(format!("{} OR {}", b, a));
+        string_stack.push(format!("{b} OR {a}"));
       }
       spdx::expression::ExprNode::Op(spdx::expression::Operator::And) => {
         let mut a = string_stack.pop().ok_or_else(|| {
@@ -81,14 +81,14 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
 
         // AND takes precedence, so parenthesize the OR expressions before applying AND
         if matches!(a_op, Some(spdx::expression::Operator::Or)) {
-          a = format!("({})", a);
+          a = format!("({a})");
         }
         if matches!(b_op, Some(spdx::expression::Operator::Or)) {
-          b = format!("({})", b);
+          b = format!("({b})");
         }
 
         op_stack.push(Some(spdx::expression::Operator::And));
-        string_stack.push(format!("{} AND {}", b, a));
+        string_stack.push(format!("{b} AND {a}"));
       }
     }
   }
@@ -103,6 +103,19 @@ pub fn normalize_license_string<S: AsRef<str> + ToString>(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn test_exceptions() {
+    assert_eq!(
+      normalize_license_string("Apache-2.0 WITH LLVM-exception").unwrap(),
+      "Apache-2.0 WITH LLVM-exception"
+    );
+
+    assert_eq!(
+      normalize_license_string("Apache-2.0 WITH LLVM-exception/MIT").unwrap(),
+      "Apache-2.0 WITH LLVM-exception OR MIT"
+    );
+  }
 
   #[test]
   fn test_quotation() {
