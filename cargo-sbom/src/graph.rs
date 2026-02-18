@@ -50,12 +50,6 @@ pub fn build<'a>(metadata: &'a Metadata) -> Result<Graph<'a>, Error> {
 
       let to = graph.nodes[&dep.pkg];
       for kind in kinds {
-        // skip dev dependencies
-        if kind == DependencyKind::Development || kind == DependencyKind::Build
-        {
-          continue;
-        }
-
         graph.graph.add_edge(from, to, kind);
       }
     }
