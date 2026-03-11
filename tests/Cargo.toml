@@ -10,7 +10,7 @@ path = "examples_test.rs"
 
 [dev-dependencies]
 anyhow = "1.0.102"
-assert_cmd = "2.1.2"
+assert_cmd = "2.2.0"
 escargot = "0.5.15"
 predicates = "3.1.4"
 pretty_assertions = "1.4.0"
