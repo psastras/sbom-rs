@@ -1,5 +1,9 @@
 use clap::Parser;
 
+fn pi() -> f64 {
+  3.1415926
+}
+
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -18,5 +22,17 @@ fn main() {
 
   for _ in 0..args.count {
     println!("Hello {}!", args.name)
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::pi;
+  use approx::assert_abs_diff_eq;
+  use std::f64::consts::PI;
+
+  #[test]
+  fn pi_value() {
+    assert_abs_diff_eq!(pi(), PI, epsilon = 0.001);
   }
 }
