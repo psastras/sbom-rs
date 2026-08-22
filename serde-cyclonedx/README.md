@@ -16,6 +16,12 @@ CycloneDx is an industry standard format for maintaining a Software Bill of Mate
 the official website:
 [https://cyclonedx.org/](https://cyclonedx.org/).
 
+## Supported Versions
+
+Each CycloneDX specification version has its own module:
+`cyclonedx::v_1_4`, `cyclonedx::v_1_5`, `cyclonedx::v_1_6` and
+`cyclonedx::v_1_7`.
+
 ## Usage
 
 For most cases, simply use the root [cyclonedx::v_1_4::CycloneDx] struct with [serde] to read
