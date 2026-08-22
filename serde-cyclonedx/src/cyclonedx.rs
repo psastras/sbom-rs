@@ -12,3 +12,8 @@ pub mod v_1_5 {
 pub mod v_1_6 {
   include!(concat!(env!("OUT_DIR"), "/cyclonedx_1_6.rs"));
 }
+
+#[allow(clippy::all)]
+pub mod v_1_7 {
+  include!(concat!(env!("OUT_DIR"), "/cyclonedx_1_7.rs"));
+}
