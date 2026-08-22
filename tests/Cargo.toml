@@ -8,6 +8,10 @@ publish = false
 name = "test_examples"
 path = "examples_test.rs"
 
+[[test]]
+name = "test_cyclonedx_1_7"
+path = "cyclonedx_1_7_test.rs"
+
 [dev-dependencies]
 anyhow = "1.0.102"
 assert_cmd = "2.2.2"
