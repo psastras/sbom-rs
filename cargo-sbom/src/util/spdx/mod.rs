@@ -195,14 +195,40 @@ pub fn convert(
       edges.for_each(|e| {
         let source = &graph.graph[e.source()];
         let target = &graph.graph[e.target()];
-        relationships.insert(HashableSpdxItemRelationships(
-          serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
-            .spdx_element_id(generate_project_id(source))
-            .related_spdx_element(generate_project_id(target))
-            .relationship_type("DEPENDS_ON")
-            .build()
-            .unwrap(),
-        ));
+        let source_project_id = generate_project_id(source);
+        let target_project_id = generate_project_id(target);
+
+        let relationship = match e.weight() {
+          cargo_metadata::DependencyKind::Normal => Some(
+            serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
+              .spdx_element_id(source_project_id)
+              .related_spdx_element(target_project_id)
+              .relationship_type("DEPENDS_ON")
+              .build()
+              .unwrap(),
+          ),
+          cargo_metadata::DependencyKind::Build => Some(
+            serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
+              .spdx_element_id(target_project_id)
+              .related_spdx_element(source_project_id)
+              .relationship_type("BUILD_TOOL_OF")
+              .build()
+              .unwrap(),
+          ),
+          cargo_metadata::DependencyKind::Development => Some(
+            serde_spdx::spdx::v_2_3::SpdxItemRelationshipsBuilder::default()
+              .spdx_element_id(target_project_id)
+              .related_spdx_element(source_project_id)
+              .relationship_type("DEV_DEPENDENCY_OF")
+              .build()
+              .unwrap(),
+          ),
+          cargo_metadata::DependencyKind::Unknown => None,
+        };
+
+        if let Some(relationship) = relationship {
+          relationships.insert(HashableSpdxItemRelationships(relationship));
+        }
       });
     }
 
