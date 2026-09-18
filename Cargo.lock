@@ -730,12 +730,22 @@ dependencies = [
 
 [[package]]
 name = "prettyplease"
-version = "0.2.36"
+version = "0.2.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff24dfcda44452b9816fff4cd4227e1bb73ff5a2f1bc1105aa92fb8565ce44d2"
+checksum = "479ca8adacdd7ce8f1fb39ce9ecccbfe93a3f1344b3d0d97f20bc0196208f62b"
 dependencies = [
  "proc-macro2",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "prettyplease"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2bfe0f4c752e450fc2faf62654f1c134747922825d5b04ca717b8874f41a40c0"
+dependencies = [
+ "proc-macro2",
+ "syn 3.0.2",
 ]
 
 [[package]]
@@ -859,7 +869,7 @@ version = "0.10.0"
 dependencies = [
  "anyhow",
  "derive_builder",
- "prettyplease",
+ "prettyplease 0.3.0",
  "proc-macro2",
  "quote",
  "schemafy_lib",
@@ -875,7 +885,7 @@ version = "0.10.0"
 dependencies = [
  "anyhow",
  "derive_builder",
- "prettyplease",
+ "prettyplease 0.3.0",
  "proc-macro2",
  "quote",
  "schemafy_lib",
@@ -1527,7 +1537,7 @@ dependencies = [
  "anyhow",
  "heck",
  "indexmap",
- "prettyplease",
+ "prettyplease 0.2.37",
  "syn 2.0.119",
  "wasm-metadata",
  "wit-bindgen-core",
@@ -1541,7 +1551,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c0f9bfd77e6a48eccf51359e3ae77140a7f50b1e2ebfe62422d8afdaffab17a"
 dependencies = [
  "anyhow",
- "prettyplease",
+ "prettyplease 0.2.37",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
