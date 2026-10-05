@@ -21,6 +21,8 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
+      - name: Verify standalone serde-cyclonedx package
+        run: cargo package -p serde-cyclonedx --locked
 
   cargo-test:
     name: Test Cargo Projects
@@ -71,10 +73,29 @@ jobs:
           command: clippy
           args: -- -D warnings
 
+  publish-cyclonedx:
+    name: Publish serde-cyclonedx
+    needs: [check, cargo-test, gha-test, fmt, clippy]
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      startsWith(github.event.head_commit.message, 'release: serde-cyclonedx ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Publish verified standalone crate
+        run: cargo publish -p serde-cyclonedx --locked
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
+
   publish:
     name: Publish
     needs: [check, cargo-test, gha-test, fmt, clippy]
-    if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'release:')
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'release:') &&
+      !startsWith(github.event.head_commit.message, 'release: serde-cyclonedx ')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -88,7 +109,10 @@ jobs:
   gh-release:
     name: Github Release Upload
     needs: [check, cargo-test, gha-test, fmt, clippy]
-    if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'release:')
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'release:') &&
+      !startsWith(github.event.head_commit.message, 'release: serde-cyclonedx ')
     strategy:
       matrix:
         runs-on: [ubuntu-latest, macos-latest]
