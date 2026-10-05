@@ -155,4 +155,18 @@ For more information on specific configurations, refer to the
 
 To release a new version (publish to crates.io), prefix the head commit with `release:` and update the relevant rust crate versions. Once merged into main the pipeline should pick up the change and publish a new version.
 
+For a `serde-cyclonedx`-only release, use a head commit starting with
+`release: serde-cyclonedx ` (for example, `release: serde-cyclonedx 0.10.1`).
+Update that crate's version, its documentation URL, and its workspace dependency
+requirements. This release publishes only `serde-cyclonedx`; it does not publish
+other workspace crates or upload `cargo-sbom` binaries. Ensure the merge commit
+retains this prefix, or use it as the squash commit title.
+
+Before publishing, verify the standalone package as well as the workspace:
+
+```shell
+cargo test --workspace --locked
+cargo package -p serde-cyclonedx --locked
+```
+
 License: MIT
